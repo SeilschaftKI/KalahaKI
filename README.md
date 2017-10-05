@@ -1,4 +1,9 @@
-# KalahaKI
+# KalahaKI  
+## _Aktueller Status:_
+
+Aufgrund von **Issue 2** mach ich an den `KalahaBoardDisp`-Klassen erstmal garnix mehr und versuch mal die Zugdynamik in `KalahaBoard`zu basteln  
+
+----
 
 ## UML Diagramm
 UML Diagramme sind mit freeware ArgoUML bearbeitbar (evt Umstieg auf einfacheres UML Programm, ich blicks nicht), erstmal Keine Updates davon.
