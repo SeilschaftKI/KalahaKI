@@ -23,19 +23,26 @@ namespace Kalaha
 		
 		[STAThread]
 		private static void Main(string[] args)
-		{
-			
-			Application.EnableVisualStyles();
+		{			
+		      //zum entwickeln der Züge: Ausgabe des Slots-Array über die konsole
+		      
+		    Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			//Application.Run(new KalahaBoardRender());
-			
-			//------------Experimente------------
-			
 			KalahaBoard TheBoard = new KalahaBoard();
-			//TheBoard.BoardDisplayInstance.MessageBox.Show("aufgerufen im Program");
+			//Application.Run(new KalahaBoardRender());				                  
 			
-			TheBoard.moveBlack(0);
-			MessageBox.Show("blubb"); //kommmt hier nicht an :(
+			
+//			Console.WriteLine("7/3 gerundet "+(int)(7/3));
+//			Console.WriteLine("7/2 gerundet "+(int)(7/2));
+//			Console.WriteLine("11/4 gerundet "+(int)(11/4));
+			
+			TheBoard.TestConsoleOut();
+			TheBoard.move(4,0);
+			TheBoard.TestConsoleOut();
+			
+			
+			
+			System.Console.ReadKey();
 			
 		}
 		
