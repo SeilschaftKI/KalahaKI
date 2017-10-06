@@ -78,7 +78,7 @@ namespace Kalaha
 				} else{
 				
 					
-					Slots[i] =13; // this.StartValue;
+					Slots[i] = 8 ; // this.StartValue;
 				}
 			
 			}
@@ -100,32 +100,57 @@ namespace Kalaha
 			Slots[moveChoice] = 0;
 			
 			
-			//ERSTE TEILRUNDE
-			if(!(ValueChoice % TotalSlots == 0)){
-				for (int i = moveChoice + 1; i <= intMin(TotalSlots-1,(ValueChoice % TotalSlots)+moveChoice); i++){
-							Slots[i]++;
-						}
-			}
-			//VOLLE RUNDEN:
-											
-			for (int i = 0; i < TotalSlots; i++) {
-					
-				Slots[i] += RoundsFinished;
-			}				
-
-				
-			//LETZTE TEILRUNDE
-			for (int i = 0; i <= (ValueChoice % TotalSlots)-(TotalSlots - (moveChoice)); i++){
-						Slots[i]++;
-					}
-			
-					
-					
-					
-
-									
+//			//ERSTE TEILRUNDE
+//			if(!(ValueChoice % TotalSlots == 0)){
+//				for (int i = moveChoice + 1; i <= intMin(TotalSlots-1,(ValueChoice % TotalSlots)+moveChoice); i++){
+//							Slots[i]++;
+//						}
+//			}
+//			
+//			
+//			
+//			//VOLLE RUNDEN:
+//											
+//			for (int i = 0; i < TotalSlots; i++) {
+//					
+//				Slots[i] += RoundsFinished;
+//			}				
+//
+//				
+//			//LETZTE TEILRUNDE
+//			for (int i = 0; i <= (ValueChoice % TotalSlots)-(TotalSlots - (moveChoice)); i++){
+//						Slots[i]++;
+//					}
+			moveFullRound(RoundsFinished);
+			moveChoiceTowardsEnd(moveChoice, ValueChoice);
+			moveFromZero((ValueChoice % TotalSlots) - (TotalSlots - 1 - moveChoice));
 			
 		}
+		
+		private void moveFullRound(int Rounds) //VOLLE RUNDE
+		{
+			for (int i = 0; i < TotalSlots; i++) {					
+				Slots[i] += Rounds;
+			}	
+		}
+		
+		private void moveChoiceTowardsEnd(int Choice, int amount) //ERSTE RUNDE BEENDEN (oder früher aufhören)
+		{
+			amount = amount % TotalSlots;			
+				
+			for (int i = Choice+1 ; i <= intMin(TotalSlots-1,(amount % TotalSlots)+Choice); i++){
+						Slots[i]++;
+				}
+					
+		}
+		
+		private void moveFromZero(int amount) //REST LETZTE RUND
+		{
+			for (int i = 0; i < amount; i++) {
+				Slots[i]++;
+			}
+		}
+		
 		
 		private int intMin(int x,int y)
 		{
@@ -160,3 +185,4 @@ namespace Kalaha
 		
 	}
 }
+
