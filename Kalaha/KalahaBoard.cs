@@ -33,108 +33,29 @@ namespace Kalaha
 		
 		int[] indKalahaSlot = {STD_BOARDSIZE, 2*STD_BOARDSIZE+1};
 		private int TotalSlots = STD_BOARDSIZE*2+2;
-		
-		private KalahaBoardDisplaySTD BoardDispInstance =new KalahaBoardDisplaySTD(); //Für später
-		
-		//------------------------METHODEN------------------------------------------	
+		private int maxInd;
 		
 		
-			
 		
 		
+		private KalahaBoardDisplaySTD BoardDispInstance =new KalahaBoardDisplaySTD(); //Für später	
 			
 		//Das brauchen wir erst später wenn wir Forms dazu nehmen:	
 		//public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
-																				  //wie das geht kommt mal in der EvoNet docu.
-														  
+		//wie das geht kommt mal in der EvoNet docu.
+
+		//------------------------METHODEN------------------------------------------
 		
-		
-																				  
 		public KalahaBoard() //Konstruktor ohne Argumente setzt Anfangskugelzahl u. Boardsize auf Standardert
 		{
 			Application.DoEvents();
-			//Application.Run(BoardDisplayInstance); //Ruft das WinForm der Klasse KalahaBoardDisplay auf HIEEEEER PROBLEM
+			//Application.Run(BoardDisplayInstance); //Ruft das WinForm der Klasse KalahaBoardDisplay auf (Außer Betrieb weil großes Problem)
 			this.BoardSize = STD_BOARDSIZE; //Slotzahl jedes Spielers OHNE KalahaSlot
 			this.StartValue = STD_BOARDSIZE; //in den Standard-Regeln wird zufällig damit begonnen
 			Slots = new int[2*(STD_BOARDSIZE+1)]; //ACHTUNG: #Slots  ist STD_BOARDSIZE, aber indiziert von 0!
-			//MessageBox.Show("Arrays in KalahaBoard wurden erzeugt");
+			this.maxInd = this.TotalSlots - 1;
 			fillSlots();
-			//MessageBox.Show("fillSlots wurde ausgefuehrt, der DispBlackSlots[2] ist gleich\n"+ BlackSlots[2]);
-		}
-		
-		//TODO flexibler Konstruktor
-		
-		
-		
-		private void fillSlots() //Fuellt die Slots zu Anfang
-		{
-			
-			
-			
-			for (int i = 0; i <= Slots.GetLength(0)-1; i++)
-			{
-				if (i == indKalahaSlot[0] || i == indKalahaSlot[1]) {
-					Slots[i] = 0;
-				} else{
-				
-					
-					Slots[i] =13; // this.StartValue;
-				}
-			
-			}
-		}
-				
-		
-		public void move(int moveChoice, int StartSide) 
-		{	
-			
-			Console.WriteLine("Ausgeführter Zug: move("+moveChoice+","+StartSide+")\n");
-			
-			int ValueChoice = Slots[moveChoice];
-			int RoundsFinished = (int)((Slots[moveChoice]) / TotalSlots); //soviele vollst. runden  werden gemacht
-																	    //gegn. kalaha zählt später nicht zur runde
-																		//ers. TotalSlots durch TotalSlots-1
-			
-			
-			Console.WriteLine("Kontrollausgabe RoundsFinished: "+RoundsFinished);
-			Slots[moveChoice] = 0;
-			
-			
-			//ERSTE TEILRUNDE
-			if(!(ValueChoice % TotalSlots == 0)){
-				for (int i = moveChoice + 1; i <= intMin(TotalSlots-1,(ValueChoice % TotalSlots)+moveChoice); i++){
-							Slots[i]++;
-						}
-			}
-			//VOLLE RUNDEN:
-											
-			for (int i = 0; i < TotalSlots; i++) {
-					
-				Slots[i] += RoundsFinished;
-			}				
-
-				
-			//LETZTE TEILRUNDE
-			for (int i = 0; i <= (ValueChoice % TotalSlots)-(TotalSlots - (moveChoice)); i++){
-						Slots[i]++;
-					}
-			
-					
-					
-					
-
-									
-			
-		}
-		
-		private int intMin(int x,int y)
-		{
-			if (x <= y) {
-				return x;
-			} else {
-				return y;
-			}
-		}
+		}	
 		
 		public void TestConsoleOut()
 		{
@@ -157,6 +78,79 @@ namespace Kalaha
 			
 		}
 		
+		private void fillSlots() //Fuellt die Slots zu Anfang
+		{	
+			
+			for (int i = 0; i <= Slots.GetLength(0)-1; i++)
+			{
+				if (i == indKalahaSlot[0] || i == indKalahaSlot[1]) {
+					Slots[i] = 0;
+				} else{					
+					Slots[i] = 5 ; // this.StartValue;
+				}		
+			}
+		}
+				
 		
+		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
+		{	
+			if (!(((moveChoice<7)==(StartSide == 0))) || (moveChoice<0) || (moveChoice>=maxInd) || (moveChoice==indKalahaSlot[1]))
+			{
+				throw new System.ArgumentException("moveChoice Liegt Außerhalb des Indexbereichs oder auf der falschen Seite in relation zum Player");
+			}
+			
+			Console.WriteLine("move("+moveChoice+","+StartSide+") wird jetzt ausgeführt");
+			int ChoiceValue = Slots[moveChoice];
+			int count = moveChoice;
+			int lastPos = moveChoice;
+			int forbiddenInd = indKalahaSlot[otherSide(StartSide)];
+			int kept=0; //Übertrag, beim überspringen behaltene Kugeln
+						
+			Slots[moveChoice]=0;
+						
+			for (int i = moveChoice+1; i <= ChoiceValue+moveChoice+kept; i++)
+			{
+				count = i % TotalSlots;
+			
+				if (forbiddenInd != count) {
+					Slots[count]++;		
+				}else{
+					kept++;
+				}				
+			}
+			
+			if((Slots[count]==1) && (count != indKalahaSlot[StartSide])){
+				if (((count<7)==(StartSide == 0)))
+				{
+					Slots[indKalahaSlot[StartSide]] += Slots[acrossInd(count)];
+					Slots[acrossInd(count)]=0;
+				}
+			}
+			
+			if (count==indKalahaSlot[StartSide]) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		private int acrossInd(int Ind){
+			return (maxInd-1) - Ind;			
+		}
+		
+		private int otherSide(int val)
+		{
+			if (val == 1) {
+				return 0;
+			}
+			else if(val == 0)
+			{
+				return 1;
+			}
+			else
+			{
+				throw new System.ArgumentException("Argument von otherSide ist invalid (Müsste 0 oder 1 sein)!");
+			}
+		}
 	}
 }
