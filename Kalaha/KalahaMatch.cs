@@ -21,10 +21,27 @@ namespace Kalaha
 	/// </summary>
 	public class KalahaMatch
 	{
-		private KalahaBoard Board = new KalahaBoard();
+		private KalahaBoard TheBoard = new KalahaBoard();
+
 		public KalahaMatch()
 		{
-				
-		}
-	}
+            
+        }
+
+        public Result Match()
+        {
+            Result result = new Result();
+            TheBoard.TestConsoleOut();
+            TheBoard.move(4, 0);
+            result.NeuerZug();
+            TheBoard.TestConsoleOut();
+            TheBoard.move(7, 1);
+            result.NeuerZug();
+            TheBoard.TestConsoleOut();
+            TheBoard.move(2, 0);
+            result.NeuerZug();
+            TheBoard.TestConsoleOut();
+            return result;
+        }
+    }
 }

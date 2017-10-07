@@ -38,7 +38,7 @@ namespace Kalaha
 		
 		
 		
-		private KalahaBoardDisplaySTD BoardDispInstance =new KalahaBoardDisplaySTD(); //Für später	
+		private KalahaBoardDisplaySTD BoardDispInstance = new KalahaBoardDisplaySTD(); //Für später	
 			
 		//Das brauchen wir erst später wenn wir Forms dazu nehmen:	
 		//public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
@@ -94,7 +94,7 @@ namespace Kalaha
 		
 		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
 		{	
-			if (!(((moveChoice<7)==(StartSide == 0))) || (moveChoice<0) || (moveChoice>=maxInd) || (moveChoice==indKalahaSlot[1]))
+			if (!(((moveChoice<7)==(StartSide == 0))) || (moveChoice<0) || (moveChoice>=maxInd) || (moveChoice==indKalahaSlot[1]))     
 			{
 				throw new System.ArgumentException("moveChoice Liegt Außerhalb des Indexbereichs oder auf der falschen Seite in relation zum Player");
 			}
