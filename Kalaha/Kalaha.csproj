@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HumanPlayer.cs" />
+    <Compile Include="IChooseMove.cs" />
     <Compile Include="KalahaBoard.cs" />
     <Compile Include="KalahaBoardDisplay.cs" />
     <Compile Include="KalahaBoardDisplay.Designer.cs">
@@ -61,7 +63,7 @@
       <DependentUpon>KalahaBoardDisplaySTD.cs</DependentUpon>
     </Compile>
     <Compile Include="KalahaMatch.cs" />
-    <Compile Include="KalahaSlot.cs" />
+    <Compile Include="KIPlayer.cs" />
     <Compile Include="NeuralNetwork\Connection.cs" />
     <Compile Include="NeuralNetwork\HyperbolicTangent.cs" />
     <Compile Include="NeuralNetwork\IActivationFunction.cs" />
@@ -69,8 +71,12 @@
     <Compile Include="NeuralNetwork\InputNeuron.cs" />
     <Compile Include="NeuralNetwork\NeuralNetwork.cs" />
     <Compile Include="NeuralNetwork\Neuron.cs" />
+    <Compile Include="NeuralNetwork\Program.cs" />
+    <Compile Include="NeuralNetwork\Properties\AssemblyInfo.cs" />
     <Compile Include="NeuralNetwork\Sigmoid.cs" />
+    <Compile Include="NeuralNetwork\SinglePerceptron.cs" />
     <Compile Include="NeuralNetwork\WorkingNeuron.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />
@@ -78,7 +84,17 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="NeuralNetwork\app.config" />
+    <None Include="NeuralNetwork\bin\Debug\NeuralNetwork.exe" />
+    <None Include="NeuralNetwork\bin\Debug\NeuralNetwork.exe.config" />
+    <None Include="NeuralNetwork\bin\Debug\NeuralNetwork.pdb" />
     <None Include="NeuralNetwork\NeuralNetwork.csproj" />
+    <None Include="NeuralNetwork\NeuralNetwork.sln" />
+    <None Include="NeuralNetwork\obj\Debug\NeuralNetwork.csproj.CoreCompileInputs.cache" />
+    <None Include="NeuralNetwork\obj\Debug\NeuralNetwork.csproj.FileListAbsolute.txt" />
+    <None Include="NeuralNetwork\obj\Debug\NeuralNetwork.csprojResolveAssemblyReference.cache" />
+    <None Include="NeuralNetwork\obj\Debug\NeuralNetwork.exe" />
+    <None Include="NeuralNetwork\obj\Debug\NeuralNetwork.pdb" />
+    <None Include="NeuralNetwork\obj\Release\NeuralNetwork.csproj.CoreCompileInputs.cache" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="KalahaBoardDisplay.resx">
@@ -90,7 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NeuralNetwork" />
-    <Folder Include="TRASH" />
+    <Folder Include="NeuralNetwork\bin" />
+    <Folder Include="NeuralNetwork\bin\Debug" />
+    <Folder Include="NeuralNetwork\obj" />
+    <Folder Include="NeuralNetwork\obj\Debug" />
+    <Folder Include="NeuralNetwork\obj\Release" />
+    <Folder Include="NeuralNetwork\Properties" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
