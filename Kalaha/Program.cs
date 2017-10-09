@@ -28,17 +28,18 @@ namespace Kalaha
 		      
 		    Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			KalahaBoard TheBoard = new KalahaBoard();
+
+            KalahaMatch kalahaMatch = new KalahaMatch();
+
+            Console.WriteLine(kalahaMatch.Match());
 			//Application.Run(new KalahaBoardRender());				                  
 			
 			
 //			Console.WriteLine("7/3 gerundet "+(int)(7/3));
 //			Console.WriteLine("7/2 gerundet "+(int)(7/2));
-//			Console.WriteLine("11/4 gerundet "+(int)(11/4));
+//			Console.WriteLine("11/4 gerundet "+(int)(11/4));        WTF?
 			
-			TheBoard.TestConsoleOut();
-			TheBoard.move(4,0);
-			TheBoard.TestConsoleOut();
+			
 			
 			
 			

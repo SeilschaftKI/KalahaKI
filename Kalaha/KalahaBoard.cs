@@ -38,7 +38,7 @@ namespace Kalaha
 		
 		
 		
-		private KalahaBoardDisplaySTD BoardDispInstance =new KalahaBoardDisplaySTD(); //Für später	
+		private KalahaBoardDisplaySTD BoardDispInstance = new KalahaBoardDisplaySTD(); //Für später	
 			
 		//Das brauchen wir erst später wenn wir Forms dazu nehmen:	
 		//public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
@@ -95,6 +95,8 @@ namespace Kalaha
 		
 		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
 		{	
+			     
+
 			if ((moveChoice >= maxInd/2) || (moveChoice < 0))
 			{
 				throw new System.ArgumentException("moveChoice="+moveChoice+" Liegt Außerhalb von [0,maxInd/2)");
