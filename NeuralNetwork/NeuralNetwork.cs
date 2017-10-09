@@ -103,15 +103,12 @@ namespace NeuralNetwork
 			}
 			
 			else 
-			{	//WIESO KANN MAN KEINE int MIT != VERGLEICHEN??
-				//Bauern-exception
-//				if (weights.Count != inputNeurons.Count*hiddenNeurons.Count + hiddenNeurons.Count*outputNeurons.Count)
-//				{
-//					Console.WriteLine("#Gewichte inhaltlich falsch!");
-//				}
+			{	
+				if (weights.GetLength(0) != inputNeurons.Count*hiddenNeurons.Count + hiddenNeurons.Count*outputNeurons.Count)
+				{
+					throw new ArgumentException("Die Gewichtungsliste weights hat die falsche Größe!");
+				}
 				
-				Console.Write("Die Liste inputNeurons enthaelt "+ inputNeurons.Count +"Objekte\n");
-				Console.Write("Die Liste hiddenNeurons enthaelt "+ hiddenNeurons.Count +"Objekte\n\n");
 				
 				foreach(WorkingNeuron  hN in hiddenNeurons) //Connections zw hidden-Schicht (mitte) und input-schicht (links)
 				{
@@ -120,10 +117,7 @@ namespace NeuralNetwork
 						hN.addConnection(new Connection(iN,weights[i++]));
 					}
 				}
-				
-				Console.Write("die Input- und Hiddenschicht ist jetzt vermascht.\n Wert des schleifenzählers ist:\n "+i+"\n\n");
-				//TODO Hier könnte man eine schleife ueber evt mehrere Hiddenschichten machen 
-				//(konstrukt von unten mit schleife ueber liste der hiddenlisten aussenrum)
+								
 				
 				foreach(WorkingNeuron  oN in outputNeurons) //Connections zw hidden-Schicht (mitte) und output-schicht (rechts)
 				{
@@ -133,13 +127,32 @@ namespace NeuralNetwork
 					}
 				}	
 			}			
+		}		
+		
+		public float[] GetAllOutputs()
+		{			
+			float[] res = new float[outputNeurons.Count-1];
+			
+			for (int i = 0; i < outputNeurons.Count; i++)
+			{
+				res[i]= outputNeurons[i].getValue();
+			}
+			return res;
+			
 		}
 		
+		public float[] GetAllInputs()
+		{
+			float[] res = new float[inputNeurons.Count-1];
+			
+			for (int i = 0; i < inputNeurons.Count; i++)
+			{
+				res[i]= inputNeurons[i].getValue();
+			}
+			return res;
+			
+			
+		}
 		
-		
-		
-//		public NeuralNetwork()
-//		{
-//		}
 	}
 }
