@@ -55,6 +55,7 @@ namespace Kalaha
 			Slots = new int[2*(STD_BOARDSIZE+1)]; //ACHTUNG: #Slots  ist STD_BOARDSIZE, aber indiziert von 0!
 			this.maxInd = this.TotalSlots - 1;
 			fillSlots();
+			NeuralNetwork.NeuralNetwork nn2 = new NeuralNetwork.NeuralNetwork();
 		}	
 		
 		public void TestConsoleOut()
@@ -94,12 +95,13 @@ namespace Kalaha
 		
 		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
 		{	
-			if (!(((moveChoice<7)==(StartSide == 0))) || (moveChoice<0) || (moveChoice>=maxInd) || (moveChoice==indKalahaSlot[1]))
+			if ((moveChoice >= maxInd/2) || (moveChoice < 0))
 			{
-				throw new System.ArgumentException("moveChoice Liegt Außerhalb des Indexbereichs oder auf der falschen Seite in relation zum Player");
+				throw new System.ArgumentException("moveChoice="+moveChoice+" Liegt Außerhalb von [0,maxInd/2)");
 			}
 			
 			Console.WriteLine("move("+moveChoice+","+StartSide+") wird jetzt ausgeführt");
+			moveChoice += StartSide*TotalSlots/2;
 			int ChoiceValue = Slots[moveChoice];
 			int count = moveChoice;
 			int lastPos = moveChoice;
