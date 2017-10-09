@@ -61,12 +61,24 @@
       <DependentUpon>KalahaBoardDisplaySTD.cs</DependentUpon>
     </Compile>
     <Compile Include="KalahaMatch.cs" />
+    <Compile Include="KalahaSlot.cs" />
+    <Compile Include="NeuralNetwork\Connection.cs" />
+    <Compile Include="NeuralNetwork\HyperbolicTangent.cs" />
+    <Compile Include="NeuralNetwork\IActivationFunction.cs" />
+    <Compile Include="NeuralNetwork\Identity.cs" />
+    <Compile Include="NeuralNetwork\InputNeuron.cs" />
+    <Compile Include="NeuralNetwork\NeuralNetwork.cs" />
+    <Compile Include="NeuralNetwork\Neuron.cs" />
+    <Compile Include="NeuralNetwork\Sigmoid.cs" />
+    <Compile Include="NeuralNetwork\WorkingNeuron.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="NeuralNetwork\app.config" />
+    <None Include="NeuralNetwork\NeuralNetwork.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="KalahaBoardDisplay.resx">
@@ -75,6 +87,10 @@
     <EmbeddedResource Include="KalahaBoardDisplaySTD.resx">
       <DependentUpon>KalahaBoardDisplaySTD.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NeuralNetwork" />
+    <Folder Include="TRASH" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
