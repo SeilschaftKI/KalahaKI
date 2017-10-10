@@ -23,7 +23,7 @@ namespace Kalaha
 	/// 
 	/// </summary>
 	public class KalahaBoard
-	{	
+	{
 		public static readonly ushort STD_BOARDSIZE = 6;
 		private int[] Slots;
 		
@@ -34,11 +34,11 @@ namespace Kalaha
 		int[] indKalahaSlot = {STD_BOARDSIZE, 2*STD_BOARDSIZE+1};
 		private int TotalSlots = STD_BOARDSIZE*2+2;
 		private int maxInd;
-		
-		
-		
-		
-		private KalahaBoardDisplaySTD BoardDispInstance = new KalahaBoardDisplaySTD(); //Für später	
+
+        //public KalahaBoardDisplay_STD Display = new KalahaBoardDisplay_STD(6);      //Der will Startvalue nicht, für Dynamik später noch lösen
+
+
+        private KalahaBoardDisplaySTD_Dani BoardDispInstance = new KalahaBoardDisplaySTD_Dani(); //Für später	
 			
 		//Das brauchen wir erst später wenn wir Forms dazu nehmen:	
 		//public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
@@ -48,7 +48,7 @@ namespace Kalaha
 		
 		public KalahaBoard() //Konstruktor ohne Argumente setzt Anfangskugelzahl u. Boardsize auf Standardert
 		{
-			Application.DoEvents();
+			//Application.DoEvents();
 			//Application.Run(BoardDisplayInstance); //Ruft das WinForm der Klasse KalahaBoardDisplay auf (Außer Betrieb weil großes Problem)
 			this.BoardSize = STD_BOARDSIZE; //Slotzahl jedes Spielers OHNE KalahaSlot
 			this.StartValue = STD_BOARDSIZE; //in den Standard-Regeln wird zufällig damit begonnen
@@ -56,7 +56,11 @@ namespace Kalaha
 			this.maxInd = this.TotalSlots - 1;
 			fillSlots();
 			NeuralNetwork.NeuralNetwork nn2 = new NeuralNetwork.NeuralNetwork();
-		}	
+
+            Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new KalahaBoardDisplay_STD(6));
+        }	
 		
 		public void TestConsoleOut()
 		{
