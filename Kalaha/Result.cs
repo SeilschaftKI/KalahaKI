@@ -7,19 +7,20 @@ namespace Kalaha
 {
     public class Result
     {
-        private int KalahaSpieler1 { get; set; }
-        private int KalahaSpieler2 { get; set; }
-        private int Spieldauer { get; set; }
+    	private int ScoreBlack;
+		private int ScoreWhite;    	
+    	
+        private int duration { get; set; }
 
-        public Result()
+        public Result(int ScoreBlack, int ScoreWhite, int duration)
         {
-            Spieldauer = 0;
+        	this.ScoreBlack = ScoreBlack;
+        	this.ScoreWhite = ScoreWhite;
+        	this.duration = duration;        	
+        		
         }
 
-        public void NeuerZug()
-        {
-            Spieldauer++;
-        }
+
 
     }
 }
