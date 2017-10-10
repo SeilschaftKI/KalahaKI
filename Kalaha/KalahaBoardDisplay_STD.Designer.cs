@@ -172,6 +172,7 @@
             this.btnP1_1.TabIndex = 5;
             this.btnP1_1.Text = "10";
             this.btnP1_1.UseVisualStyleBackColor = false;
+            this.btnP1_1.Click += new System.EventHandler(this.btnP1_1_Click);
             // 
             // btnP1_2
             // 
