@@ -21,7 +21,18 @@ namespace Kalaha
 	/// </summary>
 	public class KalahaMatch
 	{
+		
 		private KalahaBoard TheBoard = new KalahaBoard();
+		private int WhoseTurn=0;
+		private int duration=0;
+		private bool SuppressOutput=false;
+		
+		
+				
+		
+		private HumanPlayer Player0 = new HumanPlayer(0,6); //Übegabe Reihenlänge, um Eingaben prüfen zu können
+		private HumanPlayer Player1 = new HumanPlayer(1,6); //TODO 2. Argument flexibel
+		
 
 		public KalahaMatch()
 		{
@@ -30,18 +41,47 @@ namespace Kalaha
 
         public Result Match()
         {
-            Result result = new Result();
-            TheBoard.TestConsoleOut();
-            TheBoard.move(4, 0);
-            result.NeuerZug();
-            TheBoard.TestConsoleOut();
-            TheBoard.move(7, 1);
-            result.NeuerZug();
-            TheBoard.TestConsoleOut();
-            TheBoard.move(2, 0);
-            result.NeuerZug();
-            TheBoard.TestConsoleOut();
-            return result;
+        	TheBoard.TestConsoleOut();
+        	
+        	while ((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false))
+        	{
+        		TheBoard.TestConsoleOut();
+        		if (WhoseTurn%2 == 0) {
+        			while(((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false)) && (TheBoard.move(Player0.ChooseMove(),Player0.getPlaySide())==true)){
+        			      		duration++;
+        			      		TheBoard.TestConsoleOut();        			      		
+        			      }
+        			WhoseTurn++;
+        	
+        		}else{
+        				while(((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false)) && (TheBoard.move(Player1.ChooseMove(),Player1.getPlaySide())==true)){
+        			      		duration++;        			      		
+        			      		TheBoard.TestConsoleOut();
+        			      		
+        			      }
+        			WhoseTurn++;
+        		}        		
+        	       
+        	}
+        	
+        	TheBoard.TestConsoleOut();
+        	
+        	if (TheBoard.getKalahaScore(0) > TheBoard.getKalahaScore(1)) {
+        		Console.WriteLine("\n=====================\n===PLAYER 0 WINS=====\n=====================\n");
+        	} else if (TheBoard.getKalahaScore(0) < TheBoard.getKalahaScore(1)){
+        		Console.WriteLine("\n=====================\n===PLAYER 0 WINS=====\n=====================\n");
+        	} else {
+        		Console.WriteLine("\n=====================\n===UNENTSCHIEDEN=====\n=====================\n\n\n");
+        	}
+        	
+        	Console.WriteLine("Score Spieler 0: {0}\nScore Spieler 1: {1}",TheBoard.getKalahaScore(0),TheBoard.getKalahaScore(1));
+        	
+        	
+        	
+        	Result res = new Result(TheBoard.getKalahaScore(1),TheBoard.getKalahaScore(0),duration);
+        	Console.ReadKey();
+        	return res;
+        	
         }
     }
 }

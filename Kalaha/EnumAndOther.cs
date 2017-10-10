@@ -1,7 +1,7 @@
 ﻿/*
  * Benutzer: Daniel
  * Datum: 09.10.2017
- * Zeit: 12:53
+ * Zeit: 22:33
  */
 
 
@@ -16,15 +16,11 @@ using System;
 namespace Kalaha
 {
 	/// <summary>
-	/// Description of KIPlayer.
+	/// Description of EnumAndOther.
 	/// </summary>
-	public class KIPlayer : Player, IChooseMove
+	public static class EnumAndOther
 	{
-		public int ChooseMove() 
-		{
-			
-			return 0; //TODO
-		}
+		
 		
 		
 	}

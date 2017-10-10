@@ -67,6 +67,7 @@ namespace Kalaha
 					Console.Write(" ");
 				}
 			}
+		
 			Console.Write("\n   ");
 			for (int i = 0; i < Slots.GetLength(0)/2; i++)
 			{
@@ -87,23 +88,53 @@ namespace Kalaha
 				if (i == indKalahaSlot[0] || i == indKalahaSlot[1]) {
 					Slots[i] = 0;
 				} else{					
-					Slots[i] = 5 ; // this.StartValue;
+					Slots[i] = this.StartValue;
 				}		
 			}
+//			fillForDebug();
 		}
-				
+		
+//		private void fillForDebug()
+//		{
+//			for (int i = 0; i < Slots.GetLength(0)-1; i++) {
+//				Slots[i] = 0;
+//			}
+//			
+//			Slots[2]= 2;
+//			Slots[9]= 1;
+//		}
+		
+		public int getKalahaScore(int Side){
+			return Slots[indKalahaSlot[Side]];
+		}
+		
+		public int getTotalSlots()
+		{
+			return TotalSlots;
+		}
+		
+		public int getSlotfill(int Choice, int Side)
+		{
+			return Slots[Choice + Side*TotalSlots/2];
+		}
 		
 		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
 		{	
 			     
 
-			if ((moveChoice >= maxInd/2) || (moveChoice < 0))
+			if ((moveChoice > maxInd/2-1) || (moveChoice < 0))
 			{
-				throw new System.ArgumentException("moveChoice="+moveChoice+" Liegt Außerhalb von [0,maxInd/2)");
+				throw new System.ArgumentException("moveChoice="+moveChoice+" Liegt Außerhalb von [1,maxInd/2]");
+			} else if (Slots[moveChoice + StartSide*TotalSlots/2] == 0) {
+				throw new System.ArgumentException("Ein Zug wurde im leeren Feld begonnen!");				
 			}
 			
-			Console.WriteLine("move("+moveChoice+","+StartSide+") wird jetzt ausgeführt");
+			
+			Console.WriteLine("move("+(1+moveChoice)+","+StartSide+") wird jetzt ausgeführt");
 			moveChoice += StartSide*TotalSlots/2;
+			
+			
+			
 			int ChoiceValue = Slots[moveChoice];
 			int count = moveChoice;
 			int lastPos = moveChoice;
@@ -124,10 +155,12 @@ namespace Kalaha
 			}
 			
 			if((Slots[count]==1) && (count != indKalahaSlot[StartSide])){
-				if (((count<7)==(StartSide == 0)))
+				if (((count<TotalSlots/2)==(StartSide == 0)))
 				{
 					Slots[indKalahaSlot[StartSide]] += Slots[acrossInd(count)];
-					Slots[acrossInd(count)]=0;
+					Slots[acrossInd(count)] = 0;
+					Slots[count] = 0;
+					Slots[indKalahaSlot[StartSide]]++;
 				}
 			}
 			
@@ -156,5 +189,42 @@ namespace Kalaha
 				throw new System.ArgumentException("Argument von otherSide ist invalid (Müsste 0 oder 1 sein)!");
 			}
 		}
+		
+		public bool SideEmpty(int Side)
+		{
+			bool alert = false;
+			 
+			for (int i =1+Side*TotalSlots/2; i < TotalSlots/2+Side*TotalSlots/2-1; i++) {
+				if (Slots[i]!=0) {
+					alert = true;
+					break;
+				}
+			}
+			if (alert==false){
+				LastTransfer(Change0and1(Side));
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		private void LastTransfer(int Side) //Side ist die Seite, auf der noch Kugeln liegen
+		{
+			for (int i =1+Side*TotalSlots/2; i < TotalSlots/2+Side*TotalSlots/2-1; i++) {
+				Slots[indKalahaSlot[Change0and1(Side)]]+=Slots[i];
+				Slots[i] = 0;
+			}
+		}
+		
+		private int Change0and1(int val)
+		{
+			if (val <0 || val>1) {
+				throw new ArgumentException();
+			}
+			
+			return (val+1)%2;
+		}
+		
+		
 	}
 }

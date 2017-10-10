@@ -20,17 +20,24 @@ namespace Kalaha
 	/// </summary>
 	public class HumanPlayer : Player, IChooseMove
 	{
+		private int SlotsToChoose;
 		public int ChooseMove()
 		{
-			string input = Console.ReadLine();
 			
-			return Int32.Parse(input);
+			Console.WriteLine("Spieler {0} ist dran. Bitte Zug eingeben!\n", this.PlaySide);
+			string input = Console.ReadLine();			
 			
+			while(Int32.Parse(input)<1 || Int32.Parse(input)>SlotsToChoose) {		
+				Console.WriteLine("Deine Wahl muss zwischen {0} und {1} liegen. Versuchen wirs nochmal:", 1,SlotsToChoose);
+				input = Console.ReadLine();
+			}
+			return Int32.Parse(input)-1;	
 		}
 		
-		public HumanPlayer(int PlaySide)
+		public HumanPlayer(int PlaySide, int SlotsToChoose)
 		{
 			this.PlaySide = PlaySide;
+			this.SlotsToChoose = SlotsToChoose;
 		}
 		
 		public int getPlaySide()
