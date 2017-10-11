@@ -29,11 +29,9 @@ namespace Kalaha
 		    Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-            KalahaMatch kalahaMatch = new KalahaMatch();
-
+			KalahaMatch kalahaMatch = new KalahaMatch(new KIPlayer(6), new HumanPlayer());
+            
             Console.WriteLine(kalahaMatch.Match());
-			
-			
 			
 			
 			

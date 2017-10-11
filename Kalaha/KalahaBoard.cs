@@ -113,9 +113,14 @@ namespace Kalaha
 			return TotalSlots;
 		}
 		
-		public int getSlotfill(int Choice, int Side)
+//		public int getSlotfill(int Choice, int Side)
+//		{
+//			return Slots[Choice + Side*TotalSlots/2];
+//		}
+		
+		public int[] getAllSlotFill()
 		{
-			return Slots[Choice + Side*TotalSlots/2];
+			return Slots;
 		}
 		
 		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
