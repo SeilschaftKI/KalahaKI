@@ -29,15 +29,15 @@ namespace Kalaha
     {
         public static readonly ushort STD_BOARDSIZE = 6;
         private Field[] Slots = new Field[STD_BOARDSIZE * 2 + 2];
-        private Field[] SlotsS1 = new Field[STD_BOARDSIZE+1];
-        private Field[] SlotsS2 = new Field[STD_BOARDSIZE+1];
+        private Field[] SlotsP1 = new Field[STD_BOARDSIZE+1];
+        private Field[] SlotsP2 = new Field[STD_BOARDSIZE+1];
 
         private int BoardSize { get; set; }
         private int StartValue { get; set; }
 
         public bool SideEmpty = false;
 
-
+        private Hand hand = new Hand();
 
         public KalahaBoardDisplay_STD Display = new KalahaBoardDisplay_STD(6);      //Der will Startvalue nicht, für Dynamik später noch lösen
 
@@ -109,35 +109,11 @@ namespace Kalaha
 
             for (int i = 0; i <= 6; i++)
             {
-                SlotsS1[i] = Slots[i];
-                SlotsS2[i] = Slots[i + 7];
+                SlotsP1[i] = Slots[i];
+                SlotsP2[i] = Slots[i + 7];
             }
         }
 
-        //		private void fillForDebug()
-        //		{
-        //			for (int i = 0; i < Slots.GetLength(0)-1; i++) {
-        //				Slots[i] = 0;
-        //			}
-        //			
-        //			Slots[2]= 2;
-        //			Slots[9]= 1;
-        //		}
-        /*
-        public int getKalahaScore(int Side){
-			return KalahaSlots[Side];
-		}
-		
-		public int getTotalSlots()
-		{
-			return Slots.Length;
-		}
-		
-		public int getSlotfill(int Choice, int Side)
-		{
-			return Slots[Choice + Side*TotalSlots/2];
-		}
-		*/
         public bool Move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
         {
 
@@ -145,83 +121,50 @@ namespace Kalaha
 
             Console.WriteLine("move(" + (1 + moveChoice) + "," + StartSide + ") wird jetzt ausgeführt");
 
-
-            Field[] AktuelleSlots = new Field[BoardSize];
-
+            Player AmZug;
             if (StartSide == 0)
             {
-                AktuelleSlots = SlotsS1;
-            }
-            else if (StartSide == 1)
+                hand.MoveTo(SlotsP1[moveChoice]);
+                AmZug = Player.P1;
+            } else
             {
-                AktuelleSlots = SlotsS2;
+                hand.MoveTo(SlotsP2[moveChoice]);
+                AmZug = Player.P2;
             }
-            else
+
+            hand.Take();
+            hand.MoveToNext();
+
+            while (hand.Value > 1)
             {
-                //Fehlermeldung
+                hand.drop();
+                hand.MoveToNext();
             }
 
-            int Hand = AktuelleSlots[moveChoice].Empty();
+            hand.drop();        //letzter Stein fällt
 
-            CheckSides();
-
-            AktuelleSlots[moveChoice+1].Fill(Hand);
-
-            bool Extrarunde = TestExtrarunde(StartSide);
-                
-            CatchStones();
-
-            return Extrarunde;
-
-        }
-
-        private bool TestExtrarunde(int StartSide)
-        {
-            if(StartSide == 0 && SlotsS1[6].IsLastField || StartSide == 1 && SlotsS2[6].IsLastField)
+            //Nach dem Drop ins letzte Feld wird geprüft, ob irgendwelche Sonderregeln greifen
+            if (hand.HoverOver.Kind == FieldKind.Kalaha && hand.HoverOver.Owner == AmZug)   //Neue Runde durch Kalahaende
             {
                 return true;
+            } else if (hand.HoverOver.Kind == FieldKind.Normal && hand.HoverOver.Value == 1 && hand.HoverOver.Owner == AmZug) //Steinchenklauregel
+            {
+                if (AmZug == Player.P1)
+                {
+                    hand.MoveTo(SlotsP2[7 - hand.HoverOver.Position]);      //Wechsel auf andere Seite
+                    hand.Take();
+                    hand.MoveTo(SlotsP1[7 - hand.HoverOver.Position]);      //Wechsel auf ursprüngliche Seite
+                    hand.drop();
+                } else
+                {
+                    hand.MoveTo(SlotsP1[7 - hand.HoverOver.Position]);      //Wechsel auf andere Seite
+                    hand.Take();
+                    hand.MoveTo(SlotsP2[7 - hand.HoverOver.Position]);      //Wechsel auf ursprüngliche Seite
+                    hand.drop();
+                }
             }
             return false;
-        }
 
-        private void CatchStones()
-        {
-            foreach (Field f in SlotsS1)
-            {
-                if (f.IsLastField && f.Value == 1)
-                {
-                    f.Value += SlotsS2[7 - f.Position].Empty();
-                }
-                f.IsLastField = false;
-            }
-            foreach (Field f in SlotsS2)
-            {
-                if (f.IsLastField && f.Value == 1)
-                {
-                    f.Value += SlotsS1[7 - f.Position].Empty();
-                }
-                f.IsLastField = false;
-            }
-        }
-
-        private void CheckSides()
-        {
-            int i = 0;
-            foreach (Field f in SlotsS1)
-            {
-                i += f.Value;
-            }
-
-            int j = 0;
-            foreach (Field f in SlotsS2)
-            {
-                j += f.Value;
-            }
-
-            if (i == 0 || j == 0)
-            {
-                SideEmpty = true;
-            }
         }
 
         public int getKalahaScore(int Player)

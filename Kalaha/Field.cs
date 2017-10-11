@@ -9,33 +9,25 @@ namespace Kalaha
     {
         public int Value { get; set; }
         public int Position;
-        private FieldKind Kind;
+        public FieldKind Kind;
         public Field Follower { get; set; }
         public System.Windows.Forms.Button Button;
-        public bool IsLastField = false;
+        public Player Owner;
 
         public Field(int Value, int Position, FieldKind Kind, Player Player, System.Windows.Forms.Button Button)
         {
             this.Value = Value;
             this.Kind = Kind;
             this.Position = Position;
+            this.Owner = Player;
             this.Button = Button;
             this.Button.Text = Value.ToString();
         }
 
-        public void Fill (int Hand)
+        public void Fill ()
         {
-            Value++;                                    //Stein wird aus der Hand...
-            Hand--;                                     //...in das Feld gelegt
+            Value++;                                    //Stein wird aus der Hand...                                    //...in das Feld gelegt
             Button.Text = Value.ToString();             //Die Anzeige wird aktualisiert
-            if (Hand > 0)                               //Falls noch etwas in der Hand ist...
-            {
-                Follower.Fill(Hand);
-            }
-            else
-            {
-                this.IsLastField = true;
-            }
         }
 
         public int Empty()

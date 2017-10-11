@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Field.cs" />
+    <Compile Include="Hand.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="IChooseMove.cs" />
     <Compile Include="KalahaBoard.cs" />

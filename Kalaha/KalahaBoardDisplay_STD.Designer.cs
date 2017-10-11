@@ -346,7 +346,5 @@
         private System.Windows.Forms.Button btnSwitchDisplay;
         private System.Windows.Forms.ComboBox cmbSpeed;
         private System.Windows.Forms.Label lblSpeed;
-
-        private System.Windows.Forms.Button[,] Fields;
     }
 }
