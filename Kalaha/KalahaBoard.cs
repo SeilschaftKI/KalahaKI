@@ -165,12 +165,23 @@ namespace Kalaha
 
             CheckSides();
 
-            bool Extrarunde = AktuelleSlots[moveChoice+1].Fill(Hand);
+            AktuelleSlots[moveChoice+1].Fill(Hand);
 
+            bool Extrarunde = TestExtrarunde(StartSide);
+                
             CatchStones();
 
             return Extrarunde;
 
+        }
+
+        private bool TestExtrarunde(int StartSide)
+        {
+            if(StartSide == 0 && SlotsS1[6].IsLastField || StartSide == 1 && SlotsS2[6].IsLastField)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void CatchStones()

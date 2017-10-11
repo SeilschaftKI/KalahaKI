@@ -23,33 +23,18 @@ namespace Kalaha
             this.Button.Text = Value.ToString();
         }
 
-        public bool Fill (int Hand)
+        public void Fill (int Hand)
         {
             Value++;                                    //Stein wird aus der Hand...
             Hand--;                                     //...in das Feld gelegt
             Button.Text = Value.ToString();             //Die Anzeige wird aktualisiert
             if (Hand > 0)                               //Falls noch etwas in der Hand ist...
             {
-                bool LetztesFeldistKalaha = Follower.Fill(Hand);
-                if (LetztesFeldistKalaha == true)        //Durch Rekursion werden die Felder durchgegangen
-                {
-                    Console.WriteLine("Rückgegebener Wert ist true");
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("Rückgegebener Wert ist false");
-                    return false;
-                }
-            } else if(this.Kind == FieldKind.Normal)
+                Follower.Fill(Hand);
+            }
+            else
             {
-                Console.WriteLine("Kalahaprüfung ist false");
-                IsLastField = true;
-                return false;
-            } else 
-            {
-                Console.WriteLine("Kalahaprüfung ist true");
-                return true;
+                this.IsLastField = true;
             }
         }
 
