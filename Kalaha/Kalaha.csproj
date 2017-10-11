@@ -52,16 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumAndOther.cs" />
+    <Compile Include="Field.cs" />
+    <Compile Include="Hand.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="KalahaBoard.cs" />
-    <Compile Include="KalahaBoardDisplay.cs" />
-    <Compile Include="KalahaBoardDisplay.Designer.cs">
-      <DependentUpon>KalahaBoardDisplay.cs</DependentUpon>
+    <Compile Include="KalahaBoardDisplay_STD.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KalahaBoardDisplaySTD.cs" />
-    <Compile Include="KalahaBoardDisplaySTD.Designer.cs">
-      <DependentUpon>KalahaBoardDisplaySTD.cs</DependentUpon>
-    </Compile>
+    <Compile Include="KalahaBoardDisplay_STD.Designer.cs" />
     <Compile Include="KalahaMatch.cs" />
     <Compile Include="KIPlayer.cs" />
     <Compile Include="NeuralNetwork\Connection.cs" />
@@ -83,13 +81,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="KalahaBoardDisplay.resx">
-      <DependentUpon>KalahaBoardDisplay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KalahaBoardDisplaySTD.resx">
-      <DependentUpon>KalahaBoardDisplaySTD.cs</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="KalahaBoardDisplay_STD.resx" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

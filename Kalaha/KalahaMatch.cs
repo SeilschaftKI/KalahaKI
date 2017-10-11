@@ -23,7 +23,7 @@ namespace Kalaha
 	{
 		
 		private KalahaBoard TheBoard = new KalahaBoard();
-		private int WhoseTurn=0;
+		private ePlayer WhoseTurn=ePlayer.P1;
 		private int duration=0;
 		private bool SuppressOutput;		
 		private int SlotsToChoose;
@@ -59,23 +59,26 @@ namespace Kalaha
         {
         	BoardConsOutIfNotSuppressed();        	
         	
-        	while ((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false))
+        	while (TheBoard.SideEmpty == false)
         	{
         		TheBoard.TestConsoleOut();
-        		if (WhoseTurn%2 == 0) {
-        			while(((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false)) && (TheBoard.move(Player0.ChooseMove(TheBoard.getAllSlotFill()),Player0.getPlaySide())==true)){
-        			      		duration++;
-        						BoardConsOutIfNotSuppressed();      			      		
+        		if (WhoseTurn == ePlayer.P1)
+                {
+        			while((TheBoard.Move(Player0.ChooseMove(TheBoard.GetAllSlotValues()), Player0.getPlaySide()) == true))
+                    {
+        			    duration++;
+        				BoardConsOutIfNotSuppressed();      			      		
         			}
-        			WhoseTurn++;
-        	
-        		}else{
-        			while(((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false)) && (TheBoard.move(Player1.ChooseMove(TheBoard.getAllSlotFill()),Player1.getPlaySide())==true)){
-        			      		duration++;        			      		
-        			      		BoardConsOutIfNotSuppressed();
+        			WhoseTurn = ePlayer.P2;
+        		} else
+                {
+        			while(TheBoard.Move(Player1.ChooseMove(TheBoard.GetAllSlotValues()), Player1.getPlaySide()) == true)
+                    {
+        			    duration++;        			      		
+        			    BoardConsOutIfNotSuppressed();
         			      		
         			}
-        			WhoseTurn++;
+        			WhoseTurn = ePlayer.P1;
         		}        		
         	       
         	}
