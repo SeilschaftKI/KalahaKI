@@ -12,8 +12,6 @@ using System.Collections.Generic;
 
 namespace Kalaha
 {
-    enum eFieldKind { Normal, Kalaha};
-    enum ePlayer { P1, P2};
 	/// <summary>
 	/// Class with program entry point.
 	/// </summary>

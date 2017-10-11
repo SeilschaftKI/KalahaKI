@@ -59,7 +59,9 @@
     <Compile Include="KalahaBoardDisplay_STD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KalahaBoardDisplay_STD.Designer.cs" />
+    <Compile Include="KalahaBoardDisplay_STD.Designer.cs">
+      <DependentUpon>KalahaBoardDisplay_STD.cs</DependentUpon>
+    </Compile>
     <Compile Include="KalahaMatch.cs" />
     <Compile Include="KIPlayer.cs" />
     <Compile Include="NeuralNetwork\Connection.cs" />
@@ -81,7 +83,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="KalahaBoardDisplay_STD.resx" />
+    <EmbeddedResource Include="KalahaBoardDisplay_STD.resx">
+      <DependentUpon>KalahaBoardDisplay_STD.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
