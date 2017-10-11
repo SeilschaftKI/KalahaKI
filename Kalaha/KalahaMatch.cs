@@ -23,7 +23,7 @@ namespace Kalaha
 	{
 		
 		private KalahaBoard TheBoard = new KalahaBoard();
-		private int WhoseTurn=0;
+		private Player WhoseTurn = Player.P1;
 		private int duration=0;
 		private bool SuppressOutput=false;
 		
@@ -43,23 +43,27 @@ namespace Kalaha
         {
         	TheBoard.TestConsoleOut();
         	
-        	while ((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false))
+        	while ((TheBoard.SideEmpty==false))
         	{
         		TheBoard.TestConsoleOut();
-        		if (WhoseTurn%2 == 0) {
-        			while(((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false)) && (TheBoard.move(Player0.ChooseMove(),Player0.getPlaySide())==true)){
-        			      		duration++;
-        			      		TheBoard.TestConsoleOut();        			      		
-        			      }
-        			WhoseTurn++;
+        		if (WhoseTurn == Player.P1)
+                {
+        			while((TheBoard.Move(Player0.ChooseMove(),Player0.getPlaySide())==true))
+                    {
+        			    duration++;
+        			    TheBoard.TestConsoleOut();        			      		
+        			}
+        			WhoseTurn = Player.P2;
         	
-        		}else{
-        				while(((TheBoard.SideEmpty(0)==false) && (TheBoard.SideEmpty(1)==false)) && (TheBoard.move(Player1.ChooseMove(),Player1.getPlaySide())==true)){
-        			      		duration++;        			      		
-        			      		TheBoard.TestConsoleOut();
-        			      		
-        			      }
-        			WhoseTurn++;
+        		}else 
+                {
+        			while(TheBoard.Move(Player1.ChooseMove(),Player1.getPlaySide())==true)
+                    {
+        		      	duration++;        			      		
+        		      	TheBoard.TestConsoleOut();
+        		      		
+        		    }
+        			WhoseTurn = Player.P1;
         		}        		
         	       
         	}

@@ -15,220 +15,219 @@ using System.Threading.Tasks;
 
 namespace Kalaha
 {
-	/// <summary>
-	/// Kalaha Board soll die Listen enthalten, die die Slotfüllung darstellen, sowie die zugehörige Dynamik,
-	/// also sprich die implementierten "Züge"
-	///
-	/// Standardmäßig: jeder spieler hat 6 Felder + 1 Kalaha, Startfüllung von jedem Feld sind 6 Kugeln
-	/// 
-	/// </summary>
-	public class KalahaBoard
-	{
-		public static readonly ushort STD_BOARDSIZE = 6;
-		private int[] Slots;
-		
-		
-		private int BoardSize {get;set;}
-		private int StartValue {get;set;}
-		
-		int[] indKalahaSlot = {STD_BOARDSIZE, 2*STD_BOARDSIZE+1};
-		private int TotalSlots = STD_BOARDSIZE*2+2;
-		private int maxInd;
+    enum FieldKind { Normal, Kalaha };
+    enum Player { P1, P2 };
 
-        //public KalahaBoardDisplay_STD Display = new KalahaBoardDisplay_STD(6);      //Der will Startvalue nicht, für Dynamik später noch lösen
+    /// <summary>
+    /// Kalaha Board soll die Listen enthalten, die die Slotfüllung darstellen, sowie die zugehörige Dynamik,
+    /// also sprich die implementierten "Züge"
+    ///
+    /// Standardmäßig: jeder spieler hat 6 Felder + 1 Kalaha, Startfüllung von jedem Feld sind 6 Kugeln
+    /// 
+    /// </summary>
+    public class KalahaBoard
+    {
+        public static readonly ushort STD_BOARDSIZE = 6;
+        private Field[] Slots = new Field[STD_BOARDSIZE * 2 + 2];
+        private Field[] SlotsS1 = new Field[STD_BOARDSIZE+1];
+        private Field[] SlotsS2 = new Field[STD_BOARDSIZE+1];
+
+        private int BoardSize { get; set; }
+        private int StartValue { get; set; }
+
+        public bool SideEmpty = false;
 
 
-        private KalahaBoardDisplaySTD_Dani BoardDispInstance = new KalahaBoardDisplaySTD_Dani(); //Für später	
-			
-		//Das brauchen wir erst später wenn wir Forms dazu nehmen:	
-		//public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
-		//wie das geht kommt mal in der EvoNet docu.
 
-		//------------------------METHODEN------------------------------------------
-		
-		public KalahaBoard() //Konstruktor ohne Argumente setzt Anfangskugelzahl u. Boardsize auf Standardert
-		{
-			//Application.DoEvents();
-			//Application.Run(BoardDisplayInstance); //Ruft das WinForm der Klasse KalahaBoardDisplay auf (Außer Betrieb weil großes Problem)
-			this.BoardSize = STD_BOARDSIZE; //Slotzahl jedes Spielers OHNE KalahaSlot
-			this.StartValue = STD_BOARDSIZE; //in den Standard-Regeln wird zufällig damit begonnen
-			Slots = new int[2*(STD_BOARDSIZE+1)]; //ACHTUNG: #Slots  ist STD_BOARDSIZE, aber indiziert von 0!
-			this.maxInd = this.TotalSlots - 1;
-			fillSlots();
-			NeuralNetwork.NeuralNetwork nn2 = new NeuralNetwork.NeuralNetwork();
+        public KalahaBoardDisplay_STD Display = new KalahaBoardDisplay_STD(6);      //Der will Startvalue nicht, für Dynamik später noch lösen
+
+        //Das brauchen wir erst später wenn wir Forms dazu nehmen:	
+        //public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
+        //wie das geht kommt mal in der EvoNet docu.
+
+        //------------------------METHODEN------------------------------------------
+
+        public KalahaBoard() //Konstruktor ohne Argumente setzt Anfangskugelzahl u. Boardsize auf Standardert
+        {
+            this.BoardSize = STD_BOARDSIZE; //Slotzahl jedes Spielers OHNE KalahaSlot
+            this.StartValue = STD_BOARDSIZE; //in den Standard-Regeln wird zufällig damit begonnen
+            CreateSlots();
+
+            NeuralNetwork.NeuralNetwork nn2 = new NeuralNetwork.NeuralNetwork();
 
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new KalahaBoardDisplay_STD(6));
-        }	
-		
-		public void TestConsoleOut()
-		{
-			for (int i = Slots.GetLength(0)-1; i >= Slots.GetLength(0)/2; i--)
-			{
-				Console.Write("|"+Slots[i]);
-				if (Slots[i]<10) {
-					Console.Write(" ");
-				}
-			}
-		
-			Console.Write("\n   ");
-			for (int i = 0; i < Slots.GetLength(0)/2; i++)
-			{
-				Console.Write("|"+Slots[i]);
-				if (Slots[i]<10) {
-					Console.Write(" ");
-				}				
-			}
-			Console.WriteLine("\n-------------------------\n\n");
-			
-		}
-		
-		private void fillSlots() //Fuellt die Slots zu Anfang
-		{	
-			
-			for (int i = 0; i <= Slots.GetLength(0)-1; i++)
-			{
-				if (i == indKalahaSlot[0] || i == indKalahaSlot[1]) {
-					Slots[i] = 0;
-				} else{					
-					Slots[i] = this.StartValue;
-				}		
-			}
-//			fillForDebug();
-		}
-		
-//		private void fillForDebug()
-//		{
-//			for (int i = 0; i < Slots.GetLength(0)-1; i++) {
-//				Slots[i] = 0;
-//			}
-//			
-//			Slots[2]= 2;
-//			Slots[9]= 1;
-//		}
-		
-		public int getKalahaScore(int Side){
-			return Slots[indKalahaSlot[Side]];
+            Application.Run(Display);
+        }
+
+        public void TestConsoleOut()
+        {
+            for (int i = Slots.GetLength(0) - 1; i >= Slots.GetLength(0) / 2; i--)
+            {
+                Console.Write("|" + Slots[i].Value);
+                if (Slots[i].Value < 10)
+                {
+                    Console.Write(" ");
+                }
+            }
+
+            Console.Write("\n   ");
+            for (int i = 0; i < Slots.GetLength(0) / 2; i++)
+            {
+                Console.Write("|" + Slots[i].Value);
+                if (Slots[i].Value < 10)
+                {
+                    Console.Write(" ");
+                }
+            }
+            Console.WriteLine("\n-------------------------\n\n");
+
+        }
+
+        private void CreateSlots() //Erstellt und füllt die Slots zu Anfang
+        {
+            Slots[0] = new Field(StartValue, 1, FieldKind.Normal, Player.P1, Display.btnP1_1);
+            Slots[1] = new Field(StartValue, 2, FieldKind.Normal, Player.P1, Display.btnP1_2);
+            Slots[2] = new Field(StartValue, 3, FieldKind.Normal, Player.P1, Display.btnP1_3);
+            Slots[3] = new Field(StartValue, 4, FieldKind.Normal, Player.P1, Display.btnP1_4);
+            Slots[4] = new Field(StartValue, 5, FieldKind.Normal, Player.P1, Display.btnP1_5);
+            Slots[5] = new Field(StartValue, 6, FieldKind.Normal, Player.P1, Display.btnP1_6);
+            Slots[6] = new Field(0, 7, FieldKind.Kalaha, Player.P1, Display.btnP1_Kalaha);
+            Slots[7] = new Field(StartValue, 1, FieldKind.Normal, Player.P2, Display.btnP2_1);
+            Slots[8] = new Field(StartValue, 2, FieldKind.Normal, Player.P2, Display.btnP2_2);
+            Slots[9] = new Field(StartValue, 3, FieldKind.Normal, Player.P2, Display.btnP2_3);
+            Slots[10] = new Field(StartValue, 4, FieldKind.Normal, Player.P2, Display.btnP2_4);
+            Slots[11] = new Field(StartValue, 5, FieldKind.Normal, Player.P2, Display.btnP2_5);
+            Slots[12] = new Field(StartValue, 6, FieldKind.Normal, Player.P2, Display.btnP2_6);
+            Slots[13] = new Field(0, 7, FieldKind.Kalaha, Player.P2, Display.btnP2_Kalaha);
+
+            for (int i = 0; i <= BoardSize * 2; i++)
+            {
+                Slots[i].Follower = Slots[i + 1];
+            }
+            Slots[13].Follower = Slots[0];
+
+            for (int i = 0; i <= 6; i++)
+            {
+                SlotsS1[i] = Slots[i];
+                SlotsS2[i] = Slots[i + 7];
+            }
+        }
+
+        //		private void fillForDebug()
+        //		{
+        //			for (int i = 0; i < Slots.GetLength(0)-1; i++) {
+        //				Slots[i] = 0;
+        //			}
+        //			
+        //			Slots[2]= 2;
+        //			Slots[9]= 1;
+        //		}
+        /*
+        public int getKalahaScore(int Side){
+			return KalahaSlots[Side];
 		}
 		
 		public int getTotalSlots()
 		{
-			return TotalSlots;
+			return Slots.Length;
 		}
 		
 		public int getSlotfill(int Choice, int Side)
 		{
 			return Slots[Choice + Side*TotalSlots/2];
 		}
-		
-		public bool move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
-		{	
-			     
+		*/
+        public bool Move(int moveChoice, int StartSide) //Funktion gibt true zurueck wenn man im eigenen kalaha-feld landet (dann darf man nommal)
+        {
 
-			if ((moveChoice > maxInd/2-1) || (moveChoice < 0))
-			{
-				throw new System.ArgumentException("moveChoice="+moveChoice+" Liegt Außerhalb von [1,maxInd/2]");
-			} else if (Slots[moveChoice + StartSide*TotalSlots/2] == 0) {
-				throw new System.ArgumentException("Ein Zug wurde im leeren Feld begonnen!");				
-			}
-			
-			
-			Console.WriteLine("move("+(1+moveChoice)+","+StartSide+") wird jetzt ausgeführt");
-			moveChoice += StartSide*TotalSlots/2;
-			
-			
-			
-			int ChoiceValue = Slots[moveChoice];
-			int count = moveChoice;
-			int lastPos = moveChoice;
-			int forbiddenInd = indKalahaSlot[otherSide(StartSide)];
-			int kept=0; //Übertrag, beim überspringen behaltene Kugeln
-						
-			Slots[moveChoice]=0;
-						
-			for (int i = moveChoice+1; i <= ChoiceValue+moveChoice+kept; i++)
-			{
-				count = i % TotalSlots;
-			
-				if (forbiddenInd != count) {
-					Slots[count]++;		
-				}else{
-					kept++;
-				}				
-			}
-			
-			if((Slots[count]==1) && (count != indKalahaSlot[StartSide])){
-				if (((count<TotalSlots/2)==(StartSide == 0)))
-				{
-					Slots[indKalahaSlot[StartSide]] += Slots[acrossInd(count)];
-					Slots[acrossInd(count)] = 0;
-					Slots[count] = 0;
-					Slots[indKalahaSlot[StartSide]]++;
-				}
-			}
-			
-			if (count==indKalahaSlot[StartSide]) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		
-		private int acrossInd(int Ind){
-			return (maxInd-1) - Ind;			
-		}
-		
-		private int otherSide(int val)
-		{
-			if (val == 1) {
-				return 0;
-			}
-			else if(val == 0)
-			{
-				return 1;
-			}
-			else
-			{
-				throw new System.ArgumentException("Argument von otherSide ist invalid (Müsste 0 oder 1 sein)!");
-			}
-		}
-		
-		public bool SideEmpty(int Side)
-		{
-			bool alert = false;
-			 
-			for (int i =1+Side*TotalSlots/2; i < TotalSlots/2+Side*TotalSlots/2-1; i++) {
-				if (Slots[i]!=0) {
-					alert = true;
-					break;
-				}
-			}
-			if (alert==false){
-				LastTransfer(Change0and1(Side));
-				return true;
-			}else{
-				return false;
-			}
-		}
-		
-		private void LastTransfer(int Side) //Side ist die Seite, auf der noch Kugeln liegen
-		{
-			for (int i =1+Side*TotalSlots/2; i < TotalSlots/2+Side*TotalSlots/2-1; i++) {
-				Slots[indKalahaSlot[Change0and1(Side)]]+=Slots[i];
-				Slots[i] = 0;
-			}
-		}
-		
-		private int Change0and1(int val)
-		{
-			if (val <0 || val>1) {
-				throw new ArgumentException();
-			}
-			
-			return (val+1)%2;
-		}
-		
-		
-	}
+            //TODO: Eingabe überprüfen
+
+            Console.WriteLine("move(" + (1 + moveChoice) + "," + StartSide + ") wird jetzt ausgeführt");
+
+
+            Field[] AktuelleSlots = new Field[BoardSize];
+
+            if (StartSide == 0)
+            {
+                AktuelleSlots = SlotsS1;
+            }
+            else if (StartSide == 1)
+            {
+                AktuelleSlots = SlotsS2;
+            }
+            else
+            {
+                //Fehlermeldung
+            }
+
+            int Hand = AktuelleSlots[moveChoice].Empty();
+
+            CheckSides();
+
+            bool Extrarunde = AktuelleSlots[moveChoice+1].Fill(Hand);
+
+            CatchStones();
+
+            return Extrarunde;
+
+        }
+
+        private void CatchStones()
+        {
+            foreach (Field f in SlotsS1)
+            {
+                if (f.IsLastField && f.Value == 1)
+                {
+                    f.Value += SlotsS2[7 - f.Position].Empty();
+                }
+                f.IsLastField = false;
+            }
+            foreach (Field f in SlotsS2)
+            {
+                if (f.IsLastField && f.Value == 1)
+                {
+                    f.Value += SlotsS1[7 - f.Position].Empty();
+                }
+                f.IsLastField = false;
+            }
+        }
+
+        private void CheckSides()
+        {
+            int i = 0;
+            foreach (Field f in SlotsS1)
+            {
+                i += f.Value;
+            }
+
+            int j = 0;
+            foreach (Field f in SlotsS2)
+            {
+                j += f.Value;
+            }
+
+            if (i == 0 || j == 0)
+            {
+                SideEmpty = true;
+            }
+        }
+
+        public int getKalahaScore(int Player)
+        {
+            if (Player == 0)
+            {
+                return Slots[BoardSize + 1].Value;
+            }
+            else if (Player == 1)
+            {
+                return Slots[Slots.Length - 1].Value;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+    }
 }

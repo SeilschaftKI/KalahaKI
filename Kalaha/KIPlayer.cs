@@ -18,7 +18,7 @@ namespace Kalaha
 	/// <summary>
 	/// Description of KIPlayer.
 	/// </summary>
-	public class KIPlayer : Player, IChooseMove
+	public class KIPlayer : ePlayer, IChooseMove
 	{
 		public int ChooseMove() 
 		{

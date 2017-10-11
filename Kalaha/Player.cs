@@ -18,7 +18,7 @@ namespace Kalaha
 	/// <summary>
 	/// Description of Player.
 	/// </summary>
-	public class Player
+	public class ePlayer
 	{
 		protected int PlaySide; //Schwarz oder weiss
 		

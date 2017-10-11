@@ -18,7 +18,7 @@ namespace Kalaha
 	/// <summary>
 	/// Description of HumanPlayer.
 	/// </summary>
-	public class HumanPlayer : Player, IChooseMove
+	public class HumanPlayer : ePlayer, IChooseMove
 	{
 		private int SlotsToChoose;
 		public int ChooseMove()

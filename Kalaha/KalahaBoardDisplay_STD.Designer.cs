@@ -325,20 +325,20 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnP2_Kalaha;
-        private System.Windows.Forms.Button btnP1_Kalaha;
-        private System.Windows.Forms.Button btnP2_6;
-        private System.Windows.Forms.Button btnP2_5;
-        private System.Windows.Forms.Button btnP2_4;
-        private System.Windows.Forms.Button btnP2_3;
-        private System.Windows.Forms.Button btnP2_2;
-        private System.Windows.Forms.Button btnP2_1;
-        private System.Windows.Forms.Button btnP1_1;
-        private System.Windows.Forms.Button btnP1_2;
-        private System.Windows.Forms.Button btnP1_3;
-        private System.Windows.Forms.Button btnP1_4;
-        private System.Windows.Forms.Button btnP1_5;
-        private System.Windows.Forms.Button btnP1_6;
+        public System.Windows.Forms.Button btnP2_Kalaha;
+        public System.Windows.Forms.Button btnP1_Kalaha;
+        public System.Windows.Forms.Button btnP2_6;
+        public System.Windows.Forms.Button btnP2_5;
+        public System.Windows.Forms.Button btnP2_4;
+        public System.Windows.Forms.Button btnP2_3;
+        public System.Windows.Forms.Button btnP2_2;
+        public System.Windows.Forms.Button btnP2_1;
+        public System.Windows.Forms.Button btnP1_1;
+        public System.Windows.Forms.Button btnP1_2;
+        public System.Windows.Forms.Button btnP1_3;
+        public System.Windows.Forms.Button btnP1_4;
+        public System.Windows.Forms.Button btnP1_5;
+        public System.Windows.Forms.Button btnP1_6;
         private System.Windows.Forms.Label lblSpieler;
         private System.Windows.Forms.Label lblSpielerbeschriftung;
         private System.Windows.Forms.TextBox textBox1;

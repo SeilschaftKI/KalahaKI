@@ -51,7 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumAndOther.cs" />
+    <Compile Include="Field.cs" />
     <Compile Include="HumanPlayer.cs" />
     <Compile Include="IChooseMove.cs" />
     <Compile Include="KalahaBoard.cs" />
