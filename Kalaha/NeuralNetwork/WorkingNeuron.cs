@@ -24,7 +24,7 @@ namespace NeuralNetwork
 		//TODO bei bene steht hier noch ein float value drin, bei Brotcrunsher nicht??!?? --> hier und bei Bc als lok. variable in getValue() gelöst
 		//private float value;
 		
-		private IActivationFunction activationFunction =new Identity();
+		private IActivationFunction activationFunction =new Sigmoid();
 		private List<Connection> connections = new List<Connection>();  //Liste der vom WorkingNeuron nach LINKS gehenden Connections
 																		//WorkingNeuron ist ZIEL der Verbindung
 		
@@ -48,7 +48,13 @@ namespace NeuralNetwork
 			connections.Add(c);
 		}
 		
-		
+		public WorkingNeuron(IActivationFunction ActFct = null) //Standardmäßig wird mit Sigmoid initialsiert
+		{
+			ActFct = new Sigmoid();
+			if (ActFct != null) {
+				this.activationFunction = ActFct;
+			}			
+		}
 
 	}
 }

@@ -18,31 +18,56 @@ namespace Kalaha
 	/// <summary>
 	/// Description of HumanPlayer.
 	/// </summary>
-	public class HumanPlayer : Player, IChooseMove
+	public class HumanPlayer : Player
 	{
-		private int SlotsToChoose;
-		public int ChooseMove()
+		
+		override public int ChooseMove(int[] Slots)
 		{
 			
 			Console.WriteLine("Spieler {0} ist dran. Bitte Zug eingeben!\n", this.PlaySide);
-			string input = Console.ReadLine();			
+			string input ="111";			
 			
-			while(Int32.Parse(input)<1 || Int32.Parse(input)>SlotsToChoose) {		
-				Console.WriteLine("Deine Wahl muss zwischen {0} und {1} liegen. Versuchen wirs nochmal:", 1,SlotsToChoose);
+//			while(Int32.Parse(input)<1 || Int32.Parse(input)>SlotsToChoose) {		
+//				Console.WriteLine("Deine Wahl muss zwischen {0} und {1} liegen. Versuchen wirs nochmal:", 1,SlotsToChoose);
+//				input = Console.ReadLine();
+//			}
+//			
+//			while (Slots[Int32.Parse(input)-1 + PlaySide*(SlotsToChoose+1)]==0) {
+//				Console.WriteLine("Das Feld in dem du ziehen willst ist leer! Versuchen wirs nochmal:");
+//				input = Console.ReadLine();
+//			}
+			do{
 				input = Console.ReadLine();
-			}
+												
+				}while(CheckIndInRange(input, Slots) ==false || CheckNoEmptyChoice(input, Slots) == false);
+			
+			
 			return Int32.Parse(input)-1;	
 		}
 		
-		public HumanPlayer(int PlaySide, int SlotsToChoose)
-		{
-			this.PlaySide = PlaySide;
-			this.SlotsToChoose = SlotsToChoose;
+		public HumanPlayer()
+		{			
 		}
 		
-		public int getPlaySide()
-		{
-			return this.PlaySide;
+		private bool CheckIndInRange(string input, int[] Slots){
+			if(Int32.Parse(input)<1 || Int32.Parse(input)>SlotsToChoose)
+			{
+				Console.WriteLine("Deine Wahl muss zwischen {0} und {1} liegen. Versuchen wirs nochmal:", 1,SlotsToChoose);
+				return false;
+			}
+			else
+			{return true;}
 		}
+		
+		private bool CheckNoEmptyChoice(string input, int[] Slots){
+			if(Slots[Int32.Parse(input)-1 + PlaySide*(SlotsToChoose+1)]==0)
+			{
+				Console.WriteLine("Das Feld in dem du ziehen willst ist leer! Versuchen wirs nochmal:");
+				return false;
+			}
+			else{return true;}
+		}
+		
+		
 	}
 }
