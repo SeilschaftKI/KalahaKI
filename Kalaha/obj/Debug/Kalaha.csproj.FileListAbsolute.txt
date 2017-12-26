@@ -1,0 +1,36 @@
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\bin\Debug\Kalaha.exe.config
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\bin\Debug\Kalaha.exe
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\bin\Debug\Kalaha.pdb
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\obj\Debug\Kalaha.csprojResolveAssemblyReference.cache
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\obj\Debug\Kalaha.exe
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\obj\Debug\Kalaha.pdb
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\obj\Debug\Kalaha.csproj.GenerateResource.Cache
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplay.resources
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplaySTD.resources
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\bin\Debug\Kalaha.exe.config
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\bin\Debug\Kalaha.exe
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\bin\Debug\Kalaha.pdb
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplay.resources
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplaySTD.resources
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\obj\Debug\Kalaha.csproj.GenerateResource.Cache
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\obj\Debug\Kalaha.csproj.CoreCompileInputs.cache
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\obj\Debug\Kalaha.exe
+C:\Users\Bene\Source\Repos\KalahaKI\Kalaha\obj\Debug\Kalaha.pdb
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\bin\Debug\Kalaha.exe.config
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\bin\Debug\Kalaha.exe
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\bin\Debug\Kalaha.pdb
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\obj\Debug\Kalaha.csprojResolveAssemblyReference.cache
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplay.resources
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplaySTD.resources
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\obj\Debug\Kalaha.csproj.GenerateResource.Cache
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\obj\Debug\Kalaha.exe
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI-Dateichaos_aufger-umt\Kalaha\obj\Debug\Kalaha.pdb
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\bin\Debug\Kalaha.exe.config
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\bin\Debug\Kalaha.exe
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\bin\Debug\Kalaha.pdb
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\obj\Debug\Kalaha.csprojResolveAssemblyReference.cache
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplay.resources
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\obj\Debug\Kalaha.KalahaBoardDisplaySTD.resources
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\obj\Debug\Kalaha.csproj.GenerateResource.Cache
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\obj\Debug\Kalaha.exe
+C:\Users\Daniel\Documents\SharpDevelop Projects\Kalaha\Kalaha\KalahaKI\Kalaha\obj\Debug\Kalaha.pdb
