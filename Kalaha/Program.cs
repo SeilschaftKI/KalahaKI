@@ -26,41 +26,11 @@ namespace Kalaha
 		{			
 		    Application.EnableVisualStyles();
 		    Application.SetCompatibleTextRenderingDefault(false);
-		   	
-//		    List<KIPlayer> dudes = new List<KIPlayer>();
-//		    
-//		    for (int i = 0; i < 10; i++) {
-//		    	KIPlayer newdude = new KIPlayer(new NeuralNetwork(3,3,3,5f));
-//		    	dudes.Add(newdude);
-//		    	
-//		    }
-//		    
-//		    foreach (KIPlayer KP in dudes) {
-//		    	Console.WriteLine(dudes.IndexOf(KP));
-//		    }
 		    
-//		    Console.WriteLine("ERSTMAL MIT HUMAN PLAYER TESTEN OB DIE ZUGWECHSEL FUNKTIONIEREN!!!!!");
 		    Tournament Turnier = new Tournament(3);
-		    Turnier.FillResultTableau();
+		    var Gewinnerliste = Turnier.WinnersOfTournament();
 
-//		    
-//		   
-//		    int[] arr = {0,1,2,3,4,5,6,7,8,9,10,11,12,13};
-//		    int[] arr2 = KIPlayer.ShiftArray(arr,7);
-//		    
-//		    for (int i = 0; i < arr.GetLength(0); i++) {
-//		    	Console.WriteLine(arr2[i]);
-//		    }
-		
-//		KalahaMatch kalahaMatchHuman = new KalahaMatch(new HumanPlayer(), new HumanPlayer());
-//        kalahaMatchHuman.Match(); 
 
-//		KalahaMatch kalahaMatchKI = new KalahaMatch(new KIPlayer(6), new KIPlayer(6));
-//        kalahaMatchKI.Match();        
-          //  Console.WriteLine(kalahaMatch.Match());
-//			
-//			
-//			
 			System.Console.ReadKey();
 			
 		}

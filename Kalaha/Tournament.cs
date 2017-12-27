@@ -16,11 +16,12 @@ using System;
 namespace Kalaha
 {
 	/// <summary>
-	/// Description of Tournament.
+	/// A Tournament is a series of matches. The matches'm results are saved in resultList, twodimensional array.
 	/// </summary>
 	public class Tournament
 	{
-		private List<KIPlayer> competitors = new List<KIPlayer>();
+		private List<Player> competitors = new List<Player>();
+		private List<Player> winners = new List<Player>();
 		//private List<KIPlayer> winners = new List<KIPlayer>();
 		//private List<Result> results = new List<Result>();
 		Result[,] resultList;
@@ -34,48 +35,80 @@ namespace Kalaha
 			resultList = new Result[NumCompetitors, NumCompetitors];			
 		}
 		
+		
+		
 		public void FillResultTableau()
 		{
 			Result NullResult = new Result(0, 0, 0);
-			foreach (KIPlayer KP in competitors) {
-				int IndKP = competitors.IndexOf(KP);				
-				resultList[IndKP, IndKP] = NullResult; //Player gegen sich selbst wird nicht ausgespielt
+			foreach (Player PL in competitors) {
+				int IndPL = competitors.IndexOf(PL);				
+				resultList[IndPL, IndPL] = NullResult; //Player gegen sich selbst wird nicht ausgespielt
 				for (int i = 0; i < competitors.Count; i++) {
-					if (IndKP == i) {
-						
+					if (IndPL == i) {
+						//NO OP
 					}else{
-						var Match = new KalahaMatch(KP, competitors[i], 6);
-						resultList[competitors.IndexOf(KP), i] = Match.Match(); 
+						var Match = new KalahaMatch(PL, competitors[i], 6);
+						resultList[competitors.IndexOf(PL), i] = Match.Match();								
+					}
+				}
+			}			
+			ratePlayers_NumOfWins();
+		}	
+		
+		public List<Player>  WinnersOfTournament()
+		{
+			FillResultTableau();
+			winners = ChooseWinners(ratePlayers_NumOfWins());
+			return winners;
+		}
+		
+		private List<Player> ChooseWinners(List<Tuple<float,Player>> RatedPlayers, int numberOfWinners = 2)
+		{
+			// TODO SORTIEREN, im moment noch zufällig!!!
+			RatedPlayers.Sort((x, y) => y.Item1.CompareTo(x.Item1));
+			var sortedPlayers = new List<Player>();
+			for (int i = 0; i < numberOfWinners; i++) {
+				sortedPlayers.Add(RatedPlayers[i].Item2);
+			}
 			
-							
+			return sortedPlayers;
+		}
+		
+		
+		private List<Tuple<float,Player>> ratePlayers_NumOfWins()
+		{
+			int NumComp = competitors.Count;
+			var PlayerValues = new List<Tuple<float,Player>>();
+			
+			
+			foreach (Player PL in competitors) {
+				var NextTuple = new Tuple<float,Player>(0f,PL);
+				PlayerValues.Add(NextTuple);
+			}
+			
+			foreach (Player PL in competitors) {
+				int IndPL = competitors.IndexOf(PL);
+				for (int IndOpp = 0; IndOpp < NumComp; IndOpp++) { //"Heimpsiele"
+					if (resultList[IndPL,IndOpp].Score0 > resultList[IndPL,IndOpp].Score1) {
+						PlayerValues[IndPL] = new Tuple<float,Player>(PlayerValues[IndPL].Item1+1,PL); //TODO Das Dauert lange und ist hässlich, weil man Tuples nicht verändern kann. Bessere ösung?
 					}
 				}
 				
-//				var Match = new KalahaMatch(competitors[0], competitors[1], 6);
-//				Console.WriteLine("BLUBB");
-//				resultList[0, 1] = Match.Match();
-//				Console.WriteLine("SPIEL 1 AUS");
-//				
-//				var Match2 = new KalahaMatch(competitors[1], competitors[0], 6);
-//				resultList[1, 0] = Match2.Match();
-//				Console.WriteLine("SPIEL 2 AUS");
-//				
-//				var Match3 = new KalahaMatch(competitors[0], competitors[2], 6);
-//				resultList[0, 2] = Match3.Match(); 
-//				Console.WriteLine("SPIEL 3 AUS");
-			
-		}
-			
-			
-			Console.ReadKey();
-		}
+				for (int IndOpp = 0; IndOpp < NumComp; IndOpp++) { //"Auswärtsspiele"
+					if (resultList[IndOpp,IndPL].Score0 < resultList[IndOpp,IndPL].Score1) {
+						PlayerValues[IndPL] = new Tuple<float,Player>(PlayerValues[IndPL].Item1+1,PL); //TODO Das Dauert lange und ist hässlich, weil man Tuples nicht verändern kann. Bessere ösung?
+					}
+				}
+			}
 		
+			return PlayerValues;
+		}
+				//TODO Besser wäre wahrscheinlich, jedem Tournament ein interface mit rating-funktionen zu geben. aber erstmal mach ichs nach dem motto "hauptsach läuft"
 		
-		private void ratePlayers()
+		private float evaluate_result(Result res) //TODO hier eine evaluierungsfunktion, die fuer ein result einen wert ausspuckt, das wäre flexibler
 		{
-			
+				return 0;
 		}
-		
 		
 		
 		
