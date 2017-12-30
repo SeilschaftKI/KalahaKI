@@ -28,23 +28,24 @@ namespace NeuralNetwork
 		private int _numOpNeur;
 		private float[] _weights;
 		private IActivationFunction _actFct;
-		
-		
 
 		
-		public override string ToString()
+		public override string ToString() //TODO Buggy! :(
 		{
 			char[] c = {};
 			string weightString = new string(c);
+//			weightString.
 //			for (int i = 0; i < Weights.GetLength(0); i++) {
 //				weightString.Insert(weightString.Length,Weights[i]+"#");
 //			}
 			
-			weightString.Insert(weightString.Length,Convert.ToString(Weights[4])+"#");
+//			weightString.Insert(weightString.Length,Convert.ToString(Weights[4])+"#");
+//			
+//			Console.WriteLine(weightString);
+//			Console.ReadKey();
+//			return string.Format("[NNData NumIpNeur={0}, NumHdNeur={1}, NumOpNeur={2}, Weights={3}]", NumIpNeur.ToString(), NumHdNeur.ToString(), NumOpNeur, Weights.ToString());
+			return string.Format("[NNData NumIpNeur={0}, NumHdNeur={1}, NumOpNeur={2}, Weights={3}]", NumIpNeur, NumHdNeur, NumOpNeur, Weights);
 			
-			Console.WriteLine(weightString);
-			Console.ReadKey();
-			return string.Format("[NNData NumIpNeur={0}, NumHdNeur={1}, NumOpNeur={2}, Weights={3}]", _numIpNeur, _numHdNeur, _numOpNeur, _weights);
 		}
 
 		
@@ -112,11 +113,7 @@ namespace NeuralNetwork
 		{
 			return !left.Equals(right);
 		}
-		#endregion
-		
-		
-		
-		
+		#endregion		
 	}
 	
 }

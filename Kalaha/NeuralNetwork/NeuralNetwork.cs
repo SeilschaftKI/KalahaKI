@@ -9,9 +9,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 
 namespace NeuralNetwork
 {
@@ -313,7 +314,98 @@ namespace NeuralNetwork
 		 	this.Data.Weights = this.getWeightsAsArray();
 		 	this.Data.ActivFct = this.outputNeurons[0].ActFct;
 		 }
-		 	      
+		 
+		 public void DataToXML(string NN_name = "DummyNameNN")
+		 {
+		 	/*Nodes entsprechen Tags aus HTML
+		 	 MotherNode.Append(ChildNode) fügt zu einer existierenden Node "MotherNode" eine node "ChildNode" hinzu, ähnlich einer Baumstruktur
+		 	 der etxt innerhalb der Tags wird mit "MotherNode.InnerText = ..." bzw "childNode.InnerText = ...." gesetzt*/
+		 	var NNweights = Data.Weights;
+		 	XmlDocument doc = new XmlDocument();
+		 	
+		 	XmlNode XML_Root, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
+		 	XML_Root = doc.CreateElement(NN_name);
+		 	doc.AppendChild(XML_Root);
+		 	
+		 	NumIpNeur_Node = doc.CreateElement("NumberOfIpNeurons");
+		 	NumIpNeur_Node.InnerText = Data.NumIpNeur.ToString();
+		 	XML_Root.AppendChild(NumIpNeur_Node);
+		 	
+		 	NumHdNeur_Node = doc.CreateElement("NumberOfHdNeurons");
+		 	NumHdNeur_Node.InnerText = Data.NumHdNeur.ToString();
+		 	XML_Root.AppendChild(NumHdNeur_Node);
+		 	
+		 	NumOpNeur_Node = doc.CreateElement("NumberOfOpNeurons");
+			NumOpNeur_Node.InnerText = Data.NumOpNeur.ToString();
+		 	XML_Root.AppendChild(NumOpNeur_Node);
+		 	
+		 
+		 	Weights_Node = doc.CreateElement("Weights");		 	
+		 	for (int i = 0; i < NNweights.GetLength(0); i++) {
+		 		var next_weight = doc.CreateElement("Weight");
+		 		XmlAttribute Number_Attribute;
+		 		Number_Attribute = doc.CreateAttribute("NR");
+		 		Number_Attribute.InnerText = Convert.ToString(i);
+		 		
+		 		next_weight.InnerText = NNweights[i].ToString();
+		 		next_weight.Attributes.Append(Number_Attribute);
+		 		
+		 		Weights_Node.AppendChild(next_weight);
+		 	}		 	
+		 	XML_Root.AppendChild(Weights_Node);                              		 	
+		 	doc.Save(@"..\StoredNNs.xml");
+		 }
+		 
+		 public static NNData XMLToData(string filepath = @"..\StoredNNs.xml") //TODO UNDER CONSTRUCTION!. Später: standard-pfad nach entwicklung in was sinnvolles ändern
+		 {
+		 	NNData data = new NNData();
+		 	XmlNode Weights_node_xml;
+		 	
+		 	XmlDocument doc = new XmlDocument();
+		 	doc.Load(filepath);
+		 	XmlElement root = doc.DocumentElement;
+		 	
+		 	Weights_node_xml = doc.SelectSingleNode(root.Name+"/Weights");
+//		 	var Weights_nodeList_xml = root.SelectNodes("/Weight");
+		 	var Weights_nodeList_xml = Weights_node_xml.ChildNodes;
+		 	int size = Weights_nodeList_xml.Count;
+		 	
+		 	data.Weights = new float[size];
+		 	
+		 	XmlNode NumIp_xml, NumHd_xml, NumOp_xml;
+		 	NumIp_xml = doc.SelectSingleNode(root.Name+"/NumberOfIpNeurons");
+		 	int NIP = new int();
+		 	NIP=Convert.ToInt32(NumIp_xml.InnerText);
+		 	data.NumIpNeur = NIP;
+		 	
+		 	NumHd_xml = doc.SelectSingleNode(root.Name+"/NumberOfHdNeurons");
+		 	int NHD = new int();
+		 	NHD=Convert.ToInt32(NumHd_xml.InnerText);
+		 	data.NumHdNeur = NHD;
+		 	
+		 	NumOp_xml = doc.SelectSingleNode(root.Name+"/NumberOfOpNeurons");
+		 	int NOP = new int();
+		 	NOP=Convert.ToInt32(NumOp_xml.InnerText);
+		 	data.NumOpNeur = NOP;
+		 	
+		 	
+		 	
+		 	
+//		 	int WeightsAmount = doc.SelectNodes("Weights_xml =  doc.SelectSingleNode(root.Name+"/Weights");
+//		 	foreach (XmlNode weight in Weights_xml) {
+//		 		int i = 0;5
+//		 		data.Weights[i]= float.Parse(weight.InnerText);
+//		 	}
+		 	
+		 	var checkchildnodes = Weights_node_xml.ChildNodes;
+		 	int i = 0;
+		 	foreach (XmlNode w in Weights_node_xml.ChildNodes) {
+		 		
+		 		data.Weights[i] = float.Parse(w.InnerText);
+		 		i++;
+		 	}
+		 	return data;
+		 }
 		 
 		 
 		 #endregion

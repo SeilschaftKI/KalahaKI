@@ -26,12 +26,20 @@ namespace Kalaha
 		{			
 		    Application.EnableVisualStyles();
 		    Application.SetCompatibleTextRenderingDefault(false);
+//		    
+//		    Tournament Turnier = new Tournament(3);
+//		    var Gewinnerliste = Turnier.WinnersOfTournament();
+//
+		   
 		    
-		    Tournament Turnier = new Tournament(3);
-		    var Gewinnerliste = Turnier.WinnersOfTournament();
-
-
-			System.Console.ReadKey();
+			
+		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
+		    var NN = new NeuralNetwork(1,2,3,myweights);
+		    NN.DataToXML("Hugo_die_Ur-KI");
+		    
+		    var CreatedData = NeuralNetwork.XMLToData();
+		    Console.WriteLine(CreatedData.ToString());
+		    Console.ReadKey();
 			
 		}
 		
