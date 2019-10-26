@@ -38,7 +38,7 @@ namespace Kalaha
         	}
 		}
 
-		public KalahaMatch(Player Player0, Player Player1, int SlotsToChoose = 0, bool SuppressOutput = false)
+		public KalahaMatch(Player Player0, Player Player1, int SlotsToChoose = 0, bool SuppressOutput = true)
 		{	
 			if (SlotsToChoose==0){SlotsToChoose = KalahaBoard.STD_BOARDSIZE;}
 			else{this.SlotsToChoose = SlotsToChoose;}

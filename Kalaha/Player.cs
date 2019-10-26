@@ -27,7 +27,7 @@ namespace Kalaha
 		
 		ArgumentException PlaySideArgExc = new ArgumentException("Player.PlaySide muss 0 oder 1 sein!");
 
-		int[] _stats = {0,0,0};
+		int[] _stats = {0,0,0}; //(siege,niederlagen, punktedifferenz) siehe EnumAndOther
 		
 		#region Accesoren Statistik
 		

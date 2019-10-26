@@ -22,8 +22,6 @@ namespace NeuralNetwork
 	/// </summary>
 	public class NeuralNetwork
 	{
-		
-		
 		private List<InputNeuron> inputNeurons = new List<InputNeuron>();
 		private List<WorkingNeuron> outputNeurons = new List<WorkingNeuron>();
 		private List<WorkingNeuron> hiddenNeurons = new List<WorkingNeuron>();
@@ -303,8 +301,8 @@ namespace NeuralNetwork
 		 
 		 #endregion
 		 
-		 
 		#region Data-Methoden
+//		TODO: Flexible Pfade, flexibilität "alle NN in die gleiche datei" vs. "extra-Datei für einzelne NN"
 		 public void refreshData()
 		 {
 		 	this.Data.NumIpNeur = this.inputNeurons.Count;
@@ -315,7 +313,7 @@ namespace NeuralNetwork
 		 	this.Data.ActivFct = this.outputNeurons[0].ActFct;
 		 }
 		 
-		 public void DataToXML(string NN_name = "DummyNameNN")
+		 public void DataToNewXML(string NN_name = "DummyNameNN")
 		 {
 		 	/*Nodes entsprechen Tags aus HTML
 		 	 MotherNode.Append(ChildNode) fügt zu einer existierenden Node "MotherNode" eine node "ChildNode" hinzu, ähnlich einer Baumstruktur

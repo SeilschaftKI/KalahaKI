@@ -26,18 +26,15 @@ namespace Kalaha
 		
 		NeuralNetwork NN;
 		
-		
-		
-		
 		public KIPlayer(NeuralNetwork NN) 
 		{
 			this.NN = NN;
 		}
 		
-		public KIPlayer(int ChooseMove)
+		public KIPlayer(int BoardSize)
 		{
-			int amountIN = 2*(ChooseMove+1);
-			int amountON = ChooseMove;
+			int amountIN = 2*(BoardSize+1);
+			int amountON = BoardSize;
 			int amountHN = amountIN;
 			int amountConns = amountHN*(amountIN+amountON);
 			float[] weights = new float[amountConns];

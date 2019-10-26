@@ -25,22 +25,24 @@ namespace Kalaha
 		private static void Main(string[] args)
 		{			
 		    Application.EnableVisualStyles();
-		    Application.SetCompatibleTextRenderingDefault(false);
-//		    
-//		    Tournament Turnier = new Tournament(3);
-//		    var Gewinnerliste = Turnier.WinnersOfTournament();
+		    Application.SetCompatibleTextRenderingDefault(false);		    
+		    Tournament Turnier = new Tournament(3);
+		    var Gewinnerliste = Turnier.WinnersOfTournament();
 //
+//			HumanPlayer HuPlayer = new HumanPlayer();
+//			KIPlayer KiPlayer =  new KIPlayer(6); 			
+//			KalahaMatch TheMatch = new KalahaMatch(KiPlayer,HuPlayer,6);
+//			Result res = TheMatch.Match();
+		    
 		   
-		    
-			
-		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
-		    var NN = new NeuralNetwork(1,2,3,myweights);
-		    NN.DataToXML("Hugo_die_Ur-KI");
-		    
-		    var CreatedData = NeuralNetwork.XMLToData();
-		    Console.WriteLine(CreatedData.ToString());
+//		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
+//		    var NN = new NeuralNetwork(1,2,3,myweights);
+//		    NN.DataToXML("Hugo_die_Ur-KI");
+//		    
+//		    var CreatedData = NeuralNetwork.XMLToData();
+//		    Console.WriteLine(CreatedData.ToString());
 		    Console.ReadKey();
-			
+//			
 		}
 		
 	}

@@ -1,2 +1,4 @@
 *.cache
+*.pdb
+*.exe
 Kalaha/obj/Debug/
