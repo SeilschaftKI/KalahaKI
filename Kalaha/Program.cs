@@ -24,10 +24,10 @@ namespace Kalaha
 		[STAThread]
 		private static void Main(string[] args)
 		{			
-		    Application.EnableVisualStyles();
-		    Application.SetCompatibleTextRenderingDefault(false);		    
-		    Tournament Turnier = new Tournament(3);
-		    var Gewinnerliste = Turnier.WinnersOfTournament();
+//		    Application.EnableVisualStyles();
+//		    Application.SetCompatibleTextRenderingDefault(false);		    
+//		    Tournament Turnier = new Tournament(3);
+//		    var Gewinnerliste = Turnier.WinnersOfTournament();
 //
 //			HumanPlayer HuPlayer = new HumanPlayer();
 //			KIPlayer KiPlayer =  new KIPlayer(6); 			
@@ -35,9 +35,9 @@ namespace Kalaha
 //			Result res = TheMatch.Match();
 		    
 		   
-//		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
-//		    var NN = new NeuralNetwork(1,2,3,myweights);
-//		    NN.DataToXML("Hugo_die_Ur-KI");
+		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
+		    var NN = new NeuralNetwork(1,2,3,myweights);
+		    NN.DataToXML("Hugognolf_die_Ur-KI",@"..\alternXMLfile.xml");
 //		    
 //		    var CreatedData = NeuralNetwork.XMLToData();
 //		    Console.WriteLine(CreatedData.ToString());

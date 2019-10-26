@@ -33,9 +33,7 @@ namespace Kalaha
 				competitors.Add(KP);
 			}			
 			resultList = new Result[NumCompetitors, NumCompetitors];			
-		}
-		
-		
+		}			
 		
 		public void FillResultTableau()
 		{

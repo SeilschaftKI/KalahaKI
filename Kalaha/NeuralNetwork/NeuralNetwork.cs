@@ -313,8 +313,11 @@ namespace NeuralNetwork
 		 	this.Data.ActivFct = this.outputNeurons[0].ActFct;
 		 }
 		 
-		 public void DataToNewXML(string NN_name = "DummyNameNN")
+//		 public void DataToXMLinline
+		 
+		 public void DataToXML(string NN_name = "DummyNameNN", string savepath = @"..\StoredNNs.xml")
 		 {
+		 	// @ deklariert den folgenden String als verbatim string, dh ua backslashs müssen in pfaden nicht doppelt gesetzt werden wie sonst nötig
 		 	/*Nodes entsprechen Tags aus HTML
 		 	 MotherNode.Append(ChildNode) fügt zu einer existierenden Node "MotherNode" eine node "ChildNode" hinzu, ähnlich einer Baumstruktur
 		 	 der etxt innerhalb der Tags wird mit "MotherNode.InnerText = ..." bzw "childNode.InnerText = ...." gesetzt*/
@@ -351,7 +354,7 @@ namespace NeuralNetwork
 		 		Weights_Node.AppendChild(next_weight);
 		 	}		 	
 		 	XML_Root.AppendChild(Weights_Node);                              		 	
-		 	doc.Save(@"..\StoredNNs.xml");
+		 	doc.Save(savepath);
 		 }
 		 
 		 public static NNData XMLToData(string filepath = @"..\StoredNNs.xml") //TODO UNDER CONSTRUCTION!. Später: standard-pfad nach entwicklung in was sinnvolles ändern
@@ -385,9 +388,6 @@ namespace NeuralNetwork
 		 	int NOP = new int();
 		 	NOP=Convert.ToInt32(NumOp_xml.InnerText);
 		 	data.NumOpNeur = NOP;
-		 	
-		 	
-		 	
 		 	
 //		 	int WeightsAmount = doc.SelectNodes("Weights_xml =  doc.SelectSingleNode(root.Name+"/Weights");
 //		 	foreach (XmlNode weight in Weights_xml) {
