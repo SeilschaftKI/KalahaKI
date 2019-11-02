@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using System.Xml.XPath;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
@@ -243,10 +244,7 @@ namespace NeuralNetwork
 			return 2f*range*(rndNum-0.5f);
 		}
 			
-			
-
-		
-		
+					
 		static public float[] CreateRandomArray(int Length, float range=1, int sign = 0)
 		{	
 			float[] array = new float[Length];
@@ -302,6 +300,7 @@ namespace NeuralNetwork
 		 #endregion
 		 
 		#region Data-Methoden
+//		TODO: inline-Methode dergestalt, dass sie das an gewünschter, üübergebener stelle das NN rausspuckt, andere Methode zum Navigieren.
 //		TODO: Flexible Pfade, flexibilität "alle NN in die gleiche datei" vs. "extra-Datei für einzelne NN"
 		 public void refreshData()
 		 {
@@ -313,7 +312,19 @@ namespace NeuralNetwork
 		 	this.Data.ActivFct = this.outputNeurons[0].ActFct;
 		 }
 		 
-//		 public void DataToXMLinline
+		 public void DataXMLappendToNode(string TargetFile, string TargetNode = "KI_List")
+		 {//attack here
+		 	XmlDocument doc = new XmlDocument();
+		 	doc.Load(TargetFile);
+		 	XPathNavigator nav = doc.CreateNavigator();
+		 	
+		 	nav.MoveToId(TargetNode);
+		 	Console.WriteLine(nav.Name.ToString());
+		 	XmlNode XML_Root, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
+//		 	XML_Root = doc.CreateElement(NN_name);
+//		 	doc.AppendChild(XML_Root);
+		 	
+		 }
 		 
 		 public void DataToXML(string NN_name = "DummyNameNN", string savepath = @"..\StoredNNs.xml")
 		 {
@@ -425,8 +436,7 @@ namespace NeuralNetwork
 //		 	return new NeuralNetwork(
 //		 }
 		 
-		 #endregion
-		 
+		 #endregion		 
 		
 	}
 }
