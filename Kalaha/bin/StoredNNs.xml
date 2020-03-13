@@ -1,16 +1,17 @@
-<Hugognolf_die_Ur-KI>
-  <NumberOfIpNeurons>1</NumberOfIpNeurons>
-  <NumberOfHdNeurons>2</NumberOfHdNeurons>
-  <NumberOfOpNeurons>3</NumberOfOpNeurons>
-  <Weights>
-    <Weight NR="0">1</Weight>
-    <Weight NR="1">2,77</Weight>
-    <Weight NR="2">3</Weight>
-    <Weight NR="3">4</Weight>
-    <Weight NR="4">5</Weight>
-    <Weight NR="5">6</Weight>
-    <Weight NR="6">7</Weight>
-    <Weight NR="7">8</Weight>
-  </Weights>
-</Hugognolf_die_Ur-KI>
-<KI_List></KI_List>
+<subroot>
+  <Hugognolf_die_Ur-KI>
+    <NumberOfIpNeurons>1</NumberOfIpNeurons>
+    <NumberOfHdNeurons>2</NumberOfHdNeurons>
+    <NumberOfOpNeurons>3</NumberOfOpNeurons>
+    <Weights>
+      <Weight NR="0">1</Weight>
+      <Weight NR="1">2,77</Weight>
+      <Weight NR="2">3</Weight>
+      <Weight NR="3">4</Weight>
+      <Weight NR="4">5</Weight>
+      <Weight NR="5">6</Weight>
+      <Weight NR="6">7</Weight>
+      <Weight NR="7">8</Weight>
+    </Weights>
+  </Hugognolf_die_Ur-KI>
+</subroot>
