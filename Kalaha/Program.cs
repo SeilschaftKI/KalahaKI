@@ -38,12 +38,14 @@ namespace Kalaha
 		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
 		    var NN = new NeuralNetwork(1,2,3,myweights);
 //		    NN.DataToXML("Hugognolf_die_Ur-KI",@"..\StoredNNs.xml");
-//		    
-		    NN.DataXMLappendToNode(@"..\StoredNNs.xml");
-		    
-		    var CreatedData = NeuralNetwork.XMLToData();
-		    Console.WriteLine(CreatedData.ToString());
-		    Console.ReadKey();
+////		    
+//		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"subroot/Hugognolf_die_Ur-KI/NumberOfIpNeurons");
+
+
+		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"subroot");
+//		    var CreatedData = NeuralNetwork.XMLToData();
+//		    Console.WriteLine(CreatedData.ToString());
+//		    Console.ReadKey();
 //			
 		}
 		

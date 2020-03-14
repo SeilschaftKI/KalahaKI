@@ -300,7 +300,7 @@ namespace NeuralNetwork
 		 #endregion
 		 
 		#region Data-Methoden
-//		TODO: inline-Methode dergestalt, dass sie das an gewünschter, üübergebener stelle das NN rausspuckt, andere Methode zum Navigieren.
+//		TODO: inline-Methode dergestalt, dass sie das an gewünschter, übergebener stelle das NN rausspuckt, andere Methode zum Navigieren.
 //		TODO: Flexible Pfade, flexibilität "alle NN in die gleiche datei" vs. "extra-Datei für einzelne NN"
 		 public void refreshData()
 		 {
@@ -312,17 +312,65 @@ namespace NeuralNetwork
 		 	this.Data.ActivFct = this.outputNeurons[0].ActFct;
 		 }
 		 
-		 public void DataXMLappendToNode(string TargetFile, string TargetNode = "KI_List")
+		 public void DataXMLappendToNode(string TargetFile, string TargetNode = "subroot")
 		 {//attack here
 		 	XmlDocument doc = new XmlDocument();
 		 	doc.Load(TargetFile);
-		 	XPathNavigator nav = doc.CreateNavigator();
 		 	
-		 	nav.MoveToId(TargetNode);
-		 	Console.WriteLine(nav.Name.ToString());
-		 	XmlNode XML_Root, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
-//		 	XML_Root = doc.CreateElement(NN_name);
-//		 	doc.AppendChild(XML_Root);
+		 	
+//		 	TargetNode = docroot.Name+TargetNode;
+//		 	TargetNode = doc.Name+TargetNode;
+		 	
+		 	
+			XmlNode NNroot,NNhead, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
+			//....
+//			try {
+				NNroot = doc.SelectSingleNode(TargetNode);
+//			}
+//			catch
+//			{
+//				return;
+//			}
+				
+			
+			NNhead =  doc.CreateElement("MyNNname");
+			NNroot.AppendChild(NNhead);
+			
+////		 	var Weights_nodeList_xml = root.SelectNodes("/Weight");
+//		 	var Weights_nodeList_xml = Weights_node_xml.ChildNodes;
+//		 	int size = Weights_nodeList_xml.Count;
+//		 	
+//				
+//				
+		 	NumIpNeur_Node = doc.CreateElement("NumberOfIpNeurons");
+		 	NumIpNeur_Node.InnerText = Data.NumIpNeur.ToString();
+		 	NNhead.AppendChild(NumIpNeur_Node);
+//		 	
+		 	NumHdNeur_Node = doc.CreateElement("NumberOfHdNeurons");
+		 	NumHdNeur_Node.InnerText = Data.NumHdNeur.ToString();
+		 	NNhead.AppendChild(NumHdNeur_Node);
+//		 	
+		 	NumOpNeur_Node = doc.CreateElement("NumberOfOpNeurons");
+			NumOpNeur_Node.InnerText = Data.NumOpNeur.ToString();
+		 	NNhead.AppendChild(NumOpNeur_Node);
+		 	
+		 	var NNweights = Data.Weights;
+		 	Weights_Node = doc.CreateElement("Weights");		 	
+		 	for (int i = 0; i < NNweights.GetLength(0); i++) {
+		 		var next_weight = doc.CreateElement("Weight");
+		 		XmlAttribute Number_Attribute;
+		 		Number_Attribute = doc.CreateAttribute("NR");
+		 		Number_Attribute.InnerText = Convert.ToString(i);
+		 		
+		 		next_weight.InnerText = NNweights[i].ToString();
+		 		next_weight.Attributes.Append(Number_Attribute);
+		 		
+		 		Weights_Node.AppendChild(next_weight);
+		 	}		 	
+		 	NNhead.AppendChild(Weights_Node);                              		 	
+//		 	doc.Save(savepath);
+		 	
+		 	doc.Save(@"..\StoredNNs.xml");
 		 	
 		 }
 		 
@@ -335,21 +383,24 @@ namespace NeuralNetwork
 		 	var NNweights = Data.Weights;
 		 	XmlDocument doc = new XmlDocument();
 		 	
-		 	XmlNode XML_Root, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
-		 	XML_Root = doc.CreateElement(NN_name);
-		 	doc.AppendChild(XML_Root);
+		 	XmlNode docRoot, NNroot, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
+		 	docRoot = doc.CreateElement("subroot");
+		 	doc.AppendChild(docRoot);
+		 	NNroot =  doc.CreateElement(NN_name);
+		   
+		 	docRoot.AppendChild(NNroot);
 		 	
 		 	NumIpNeur_Node = doc.CreateElement("NumberOfIpNeurons");
 		 	NumIpNeur_Node.InnerText = Data.NumIpNeur.ToString();
-		 	XML_Root.AppendChild(NumIpNeur_Node);
+		 	NNroot.AppendChild(NumIpNeur_Node);
 		 	
 		 	NumHdNeur_Node = doc.CreateElement("NumberOfHdNeurons");
 		 	NumHdNeur_Node.InnerText = Data.NumHdNeur.ToString();
-		 	XML_Root.AppendChild(NumHdNeur_Node);
+		 	NNroot.AppendChild(NumHdNeur_Node);
 		 	
 		 	NumOpNeur_Node = doc.CreateElement("NumberOfOpNeurons");
 			NumOpNeur_Node.InnerText = Data.NumOpNeur.ToString();
-		 	XML_Root.AppendChild(NumOpNeur_Node);
+		 	NNroot.AppendChild(NumOpNeur_Node);
 		 	
 		 
 		 	Weights_Node = doc.CreateElement("Weights");		 	
@@ -364,7 +415,7 @@ namespace NeuralNetwork
 		 		
 		 		Weights_Node.AppendChild(next_weight);
 		 	}		 	
-		 	XML_Root.AppendChild(Weights_Node);                              		 	
+		 	NNroot.AppendChild(Weights_Node);                              		 	
 		 	doc.Save(savepath);
 		 }
 		 
@@ -377,25 +428,27 @@ namespace NeuralNetwork
 		 	doc.Load(filepath);
 		 	XmlElement root = doc.DocumentElement;
 		 	
-		 	Weights_node_xml = doc.SelectSingleNode(root.Name+"/Weights");
+		 	Weights_node_xml = doc.SelectSingleNode(@"/subroot/Weights"); // attac here?"!
 //		 	var Weights_nodeList_xml = root.SelectNodes("/Weight");
 		 	var Weights_nodeList_xml = Weights_node_xml.ChildNodes;
 		 	int size = Weights_nodeList_xml.Count;
 		 	
+		 	string NNname = "Hugognolf_die_Ur-KI";
+		 	
 		 	data.Weights = new float[size];
 		 	
 		 	XmlNode NumIp_xml, NumHd_xml, NumOp_xml;
-		 	NumIp_xml = doc.SelectSingleNode(root.Name+"/NumberOfIpNeurons");
+		 	NumIp_xml = doc.SelectSingleNode(root.Name+"/"+NNname+"/NumberOfIpNeurons");
 		 	int NIP = new int();
-		 	NIP=Convert.ToInt32(NumIp_xml.InnerText);
+		 	NIP = Convert.ToInt32(NumIp_xml.InnerText);
 		 	data.NumIpNeur = NIP;
 		 	
-		 	NumHd_xml = doc.SelectSingleNode(root.Name+"/NumberOfHdNeurons");
+		 	NumHd_xml = doc.SelectSingleNode(root.Name+"/"+NNname+"/NumberOfHdNeurons");
 		 	int NHD = new int();
 		 	NHD=Convert.ToInt32(NumHd_xml.InnerText);
 		 	data.NumHdNeur = NHD;
 		 	
-		 	NumOp_xml = doc.SelectSingleNode(root.Name+"/NumberOfOpNeurons");
+		 	NumOp_xml = doc.SelectSingleNode(root.Name+"/"+NNname+"/NumberOfOpNeurons");
 		 	int NOP = new int();
 		 	NOP=Convert.ToInt32(NumOp_xml.InnerText);
 		 	data.NumOpNeur = NOP;
