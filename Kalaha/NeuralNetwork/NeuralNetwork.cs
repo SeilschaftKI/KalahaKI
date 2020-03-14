@@ -297,6 +297,12 @@ namespace NeuralNetwork
 		 	
 		 }
 		 
+//		 public NNData getData() // gut und nötig?
+//		 {
+//		 	NNData res = this.Data;
+//		 	return res;
+//		 }
+//		 
 		 #endregion
 		 
 		#region Data-Methoden
@@ -312,10 +318,11 @@ namespace NeuralNetwork
 		 	this.Data.ActivFct = this.outputNeurons[0].ActFct;
 		 }
 		 
-		 public void DataXMLappendToNode(string TargetFile, string TargetNode = "subroot")
+		 public void DataXMLappendToNode(string TargetFile, string TargetNode, string ID, string Name = "NoNameNN")
 		 {//attack here
 		 	XmlDocument doc = new XmlDocument();
 		 	doc.Load(TargetFile);
+		 
 		 	
 		 	
 //		 	TargetNode = docroot.Name+TargetNode;
@@ -333,7 +340,13 @@ namespace NeuralNetwork
 //			}
 				
 			
-			NNhead =  doc.CreateElement("MyNNname");
+			NNhead =  doc.CreateElement(Name);
+			// Schreibe ID als Attribute in die Node des NN
+			XmlAttribute ID_Attribute;
+			ID_Attribute = doc.CreateAttribute("ID");
+			ID_Attribute.InnerText = ID;
+			NNhead.Attributes.Append(ID_Attribute);
+			
 			NNroot.AppendChild(NNhead);
 			
 ////		 	var Weights_nodeList_xml = root.SelectNodes("/Weight");

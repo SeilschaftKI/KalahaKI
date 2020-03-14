@@ -42,11 +42,18 @@ namespace Kalaha
 //		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"subroot/Hugognolf_die_Ur-KI/NumberOfIpNeurons");
 
 
-		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"subroot");
+		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"NeuralNetworks","#000001","Egon");
+		    
+//		    NNData NewData = NeuralNetwork.XMLToData(@"..\StoredNNs.xml");
+//		    NeuralNetwork NewNN = new NeuralNetwork(NewData);
 //		    var CreatedData = NeuralNetwork.XMLToData();
 //		    Console.WriteLine(CreatedData.ToString());
 //		    Console.ReadKey();
+		    
+//		    Console.Write(NN.ToString());
+//		    Console.ReadKey();
 //			
+		    
 		}
 		
 	}
