@@ -432,21 +432,23 @@ namespace NeuralNetwork
 		 	doc.Save(savepath);
 		 }
 		 
-		 public static NNData XMLToData(string filepath = @"..\StoredNNs.xml") //TODO UNDER CONSTRUCTION!. Später: standard-pfad nach entwicklung in was sinnvolles ändern
+		 public static NNData XMLToData(string filepath, string Name, string InNode) //TODO UNDER CONSTRUCTION!. Später: standard-pfad nach entwicklung in was sinnvolles ändern
 		 {
 		 	NNData data = new NNData();
 		 	XmlNode Weights_node_xml;
+		 	string filesep = @"/";
 		 	
 		 	XmlDocument doc = new XmlDocument();
 		 	doc.Load(filepath);
 		 	XmlElement root = doc.DocumentElement;
 		 	
-		 	Weights_node_xml = doc.SelectSingleNode(@"/subroot/Weights"); // attac here?"!
+//		 	Weights_node_xml = doc.SelectSingleNode(@"/subroot/Weights");
+		 	Weights_node_xml = doc.SelectSingleNode( InNode + filesep + Name + @"/Weights");
 //		 	var Weights_nodeList_xml = root.SelectNodes("/Weight");
 		 	var Weights_nodeList_xml = Weights_node_xml.ChildNodes;
 		 	int size = Weights_nodeList_xml.Count;
 		 	
-		 	string NNname = "Hugognolf_die_Ur-KI";
+		 	string NNname = Name;
 		 	
 		 	data.Weights = new float[size];
 		 	
