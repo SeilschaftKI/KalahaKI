@@ -26,8 +26,8 @@ namespace Kalaha
 		{			
 		    Application.EnableVisualStyles();
 		    Application.SetCompatibleTextRenderingDefault(false);		    
-//		    Tournament Turnier = new Tournament(3);
-//		    var Gewinnerliste = Turnier.WinnersOfTournament();
+		    Tournament Turnier = new Tournament(3);
+		    var Gewinnerliste = Turnier.WinnersOfTournament();
 //
 //			HumanPlayer HuPlayer = new HumanPlayer();
 //			KIPlayer KiPlayer =  new KIPlayer(6); 			
@@ -35,14 +35,14 @@ namespace Kalaha
 //			Result res = TheMatch.Match();
 		    
 //		   
-		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
-		    var NN = new NeuralNetwork(1,2,3,myweights);
+//		    float[] myweights = {1f,2.77f,3f,4f,5f,6f,7f,8f};
+//		    var NN = new NeuralNetwork(1,2,3,myweights);
 //		    NN.DataToXML("Hugognolf_die_Ur-KI",@"..\StoredNNs.xml");
 ////		    
 //		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"subroot/Hugognolf_die_Ur-KI/NumberOfIpNeurons");
 
 
-		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"NeuralNetworks","#000001","Egon");
+//		    NN.DataXMLappendToNode(@"..\StoredNNs.xml",@"NeuralNetworks","#000001","Egon");
 		    
 //		    NNData NewData = NeuralNetwork.XMLToData(@"..\StoredNNs.xml");
 //		    NeuralNetwork NewNN = new NeuralNetwork(NewData);
