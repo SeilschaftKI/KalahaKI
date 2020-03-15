@@ -24,7 +24,7 @@ namespace Kalaha
 	public class KIPlayer : Player
 	{
 		
-		NeuralNetwork NN;
+		private NeuralNetwork NN;
 		
 		public KIPlayer(NeuralNetwork NN) 
 		{
@@ -62,6 +62,18 @@ namespace Kalaha
 			return res;
 		}
 		
+		public void refreshNNData()
+		{
+			this.NN.refreshData();
+		}
+		
+		public void appendNNData2Xml(string ID, string TargetFile, string TargetNode, string Name="NonameNN")
+		{
+			this.NN.DataXMLappendToNode(@"..\StoredNNs.xml", TargetNode, ID, Name);
+		}
+		
+		
+				
 		private static int IndOfMax(float[] array)
 		{
 			int maxind = 0;
