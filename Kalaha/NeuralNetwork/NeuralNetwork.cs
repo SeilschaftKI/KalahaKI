@@ -306,8 +306,7 @@ namespace NeuralNetwork
 		 #endregion
 		 
 		#region Data-Methoden
-//		TODO: inline-Methode dergestalt, dass sie das an gewünschter, übergebener stelle das NN rausspuckt, andere Methode zum Navigieren.
-//		TODO: Flexible Pfade, flexibilität "alle NN in die gleiche datei" vs. "extra-Datei für einzelne NN"
+//		TODO: Methode zum Navigieren innerhalb xml zum speichern via dataXMLappendToNode in Tieferen xml-nodes.
 		 public void refreshData()
 		 {
 		 	this.Data.NumIpNeur = this.inputNeurons.Count;
@@ -319,28 +318,20 @@ namespace NeuralNetwork
 		 }
 		 
 		 public void DataXMLappendToNode(string TargetFile, string TargetNode, string ID, string Name = "NoNameNN")
-		 {//attack here
+		 {
+		 	/* Speichert die Daten in der NNData-Klasse des zugehörigen NeuralNetwork im XML-File TargetFile,
+ 		 	 * innerhalb der Node TargetNode (TargetNode muss direkt am DocumentElement der XML-Datei hängen).
+ 		 	 * Die Node des gespeichterten NN wird mti dem Namen Name
+			 * und der Identifikationsnummer ID (Attribut der Node mit dem Namen, root-Node des neu gespeicherten NN) versehen */
+			
 		 	XmlDocument doc = new XmlDocument();
 		 	doc.Load(TargetFile);
-		 
-		 	
-		 	
-//		 	TargetNode = docroot.Name+TargetNode;
-//		 	TargetNode = doc.Name+TargetNode;
-		 	
 		 	
 			XmlNode NNroot,NNhead, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
-			//....
-//			try {
-				NNroot = doc.SelectSingleNode(TargetNode);
-//			}
-//			catch
-//			{
-//				return;
-//			}
-				
-			
+
+			NNroot = doc.SelectSingleNode(TargetNode)		
 			NNhead =  doc.CreateElement(Name);
+			
 			// Schreibe ID als Attribute in die Node des NN
 			XmlAttribute ID_Attribute;
 			ID_Attribute = doc.CreateAttribute("ID");
@@ -348,25 +339,20 @@ namespace NeuralNetwork
 			NNhead.Attributes.Append(ID_Attribute);
 			
 			NNroot.AppendChild(NNhead);
-			
-////		 	var Weights_nodeList_xml = root.SelectNodes("/Weight");
-//		 	var Weights_nodeList_xml = Weights_node_xml.ChildNodes;
-//		 	int size = Weights_nodeList_xml.Count;
-//		 	
-//				
-//				
+			// Node für Anzahl input-neurons
 		 	NumIpNeur_Node = doc.CreateElement("NumberOfIpNeurons");
 		 	NumIpNeur_Node.InnerText = Data.NumIpNeur.ToString();
 		 	NNhead.AppendChild(NumIpNeur_Node);
-//		 	
+		 	// Node für Anzahl hidden-neurons
 		 	NumHdNeur_Node = doc.CreateElement("NumberOfHdNeurons");
 		 	NumHdNeur_Node.InnerText = Data.NumHdNeur.ToString();
 		 	NNhead.AppendChild(NumHdNeur_Node);
-//		 	
+		 	// Node für Anzahl output-neurons
 		 	NumOpNeur_Node = doc.CreateElement("NumberOfOpNeurons");
 			NumOpNeur_Node.InnerText = Data.NumOpNeur.ToString();
 		 	NNhead.AppendChild(NumOpNeur_Node);
 		 	
+		 	// Node, an der die Werte aller Connection-Gewiche hängen
 		 	var NNweights = Data.Weights;
 		 	Weights_Node = doc.CreateElement("Weights");		 	
 		 	for (int i = 0; i < NNweights.GetLength(0); i++) {
@@ -381,18 +367,19 @@ namespace NeuralNetwork
 		 		Weights_Node.AppendChild(next_weight);
 		 	}		 	
 		 	NNhead.AppendChild(Weights_Node);                              		 	
-//		 	doc.Save(savepath);
 		 	
-		 	doc.Save(@"..\StoredNNs.xml");
-		 	
+		 	doc.Save(TargetFile);
 		 }
 		 
 		 public void DataToXML(string NN_name = "DummyNameNN", string savepath = @"..\StoredNNs.xml")
 		 {
+		 	//TODO evt in dieser Form überflüssig. Ggf. entfernen oder zumindest unter der Verwendung von DataXMLappendToNode arbeiten lassen.
+		 	
 		 	// @ deklariert den folgenden String als verbatim string, dh ua backslashs müssen in pfaden nicht doppelt gesetzt werden wie sonst nötig
 		 	/*Nodes entsprechen Tags aus HTML
 		 	 MotherNode.Append(ChildNode) fügt zu einer existierenden Node "MotherNode" eine node "ChildNode" hinzu, ähnlich einer Baumstruktur
 		 	 der etxt innerhalb der Tags wird mit "MotherNode.InnerText = ..." bzw "childNode.InnerText = ...." gesetzt*/
+		 	
 		 	var NNweights = Data.Weights;
 		 	XmlDocument doc = new XmlDocument();
 		 	
@@ -415,7 +402,6 @@ namespace NeuralNetwork
 			NumOpNeur_Node.InnerText = Data.NumOpNeur.ToString();
 		 	NNroot.AppendChild(NumOpNeur_Node);
 		 	
-		 
 		 	Weights_Node = doc.CreateElement("Weights");		 	
 		 	for (int i = 0; i < NNweights.GetLength(0); i++) {
 		 		var next_weight = doc.CreateElement("Weight");
@@ -497,7 +483,6 @@ namespace NeuralNetwork
 //		 	return new NeuralNetwork(
 //		 }
 		 
-		 #endregion		 
-		
+		 #endregion		 	
 	}
 }
