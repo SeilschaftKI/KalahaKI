@@ -434,6 +434,9 @@ namespace NeuralNetwork
 		 
 		 public static NNData XMLToDataByName(string filepath, string Name, string InNode)
 		 {
+		 	/* Sucht im XML-File in filepath, in der Node InNode (muss direkt am document-root von filepath hängen), das Neural Network mit dem Namen Name)
+		 	 * und Speichert dies in einer NNData-Klasse. Aus dieser kann mit dem Konstruktor NeuralNetwork(NNData data) in ein 
+			 * Neural Network mit den im XML-file gespeichtern eigenschaften erzeugt werden */
 		 	NNData data = new NNData();
 		 	XmlNode Weights_node_xml;
 		 	string filesep = @"/";
@@ -466,12 +469,6 @@ namespace NeuralNetwork
 		 	NOP=Convert.ToInt32(NumOp_xml.InnerText);
 		 	data.NumOpNeur = NOP;
 		 	
-//		 	int WeightsAmount = doc.SelectNodes("Weights_xml =  doc.SelectSingleNode(root.Name+"/Weights");
-//		 	foreach (XmlNode weight in Weights_xml) {
-//		 		int i = 0;5
-//		 		data.Weights[i]= float.Parse(weight.InnerText);
-//		 	}
-		 	
 		 	var checkchildnodes = Weights_node_xml.ChildNodes;
 		 	int i = 0;
 		 	foreach (XmlNode w in Weights_node_xml.ChildNodes) {
@@ -481,8 +478,6 @@ namespace NeuralNetwork
 		 	}
 		 	return data;
 		 }
-		 
-		 
 		 #endregion
 		 
 		 #region Müllhalde
