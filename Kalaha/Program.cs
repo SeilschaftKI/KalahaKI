@@ -26,8 +26,8 @@ namespace Kalaha
 		{			
 		    Application.EnableVisualStyles();
 		    Application.SetCompatibleTextRenderingDefault(false);		    
-		    Tournament Turnier = new Tournament(3);
-		    var Gewinnerliste = Turnier.WinnersOfTournament();
+//		    Tournament Turnier = new Tournament(3);
+//		    var Gewinnerliste = Turnier.WinnersOfTournament();
 //
 //			HumanPlayer HuPlayer = new HumanPlayer();
 //			KIPlayer KiPlayer =  new KIPlayer(6); 			
@@ -52,8 +52,18 @@ namespace Kalaha
 		    
 //		    Console.Write(NN.ToString());
 //		    Console.ReadKey();
-//			
-		    
+
+			NNData OlberichsData = NeuralNetwork.XMLToDataByName(@"..\StoredNNs.xml","OlberichAusBern","NeuralNetworks");
+			NeuralNetwork OlberichNN = new NeuralNetwork(OlberichsData);
+			NeuralNetwork OlberichNN2 = new NeuralNetwork(OlberichsData);
+			
+			KIPlayer OlberichPlayer = new KIPlayer(OlberichNN);
+			KIPlayer OlberichPlayer2 = new KIPlayer(OlberichNN2);
+			
+			
+			KalahaMatch TheMatch = new KalahaMatch(OlberichPlayer,OlberichPlayer2);
+			Console.Write(OlberichNN.ToString());
+		    Console.ReadKey();
 		}
 		
 	}
