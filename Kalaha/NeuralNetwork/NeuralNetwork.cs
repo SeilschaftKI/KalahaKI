@@ -150,8 +150,8 @@ namespace NeuralNetwork
 
 		#endregion
 		
-		
 		//-------------------------------------------------------------------------
+		
 		#region Konstruktoren
 		public NeuralNetwork(int amountIN, int amountHN, int amountON, float[] weights, IActivationFunction ActFct = null)
 		{//Keine Zufallsgewichte
@@ -329,7 +329,7 @@ namespace NeuralNetwork
 		 	
 			XmlNode NNroot,NNhead, NumIpNeur_Node, NumHdNeur_Node, NumOpNeur_Node, Weights_Node;
 
-			NNroot = doc.SelectSingleNode(TargetNode)		
+			NNroot = doc.SelectSingleNode(TargetNode);		
 			NNhead =  doc.CreateElement(Name);
 			
 			// Schreibe ID als Attribute in die Node des NN
