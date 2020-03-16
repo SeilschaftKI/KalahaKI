@@ -61,13 +61,10 @@ namespace Kalaha
 				Pl.refreshNNData();
 			}
 			
-			//Nur KIPlayer haben ein NN. zum speichern od. anderweitig verarbeiten der Sieger muss also eine Liste rein aus KI
-			//KIPlayer erstellt werden: KIwinners
-			List<KIPlayer> KIwinners = winners.OfType<KIPlayer>().ToList();
-			KIwinners[1].appendNNData2Xml("#000100",@"..\StoredNNs.xml","NeuralNetworks","OlberichAusBern");
-			
-			
-			
+//			//Nur KIPlayer haben ein NN. zum speichern od. anderweitig verarbeiten der Sieger muss also eine Liste rein aus KI
+//			//KIPlayer erstellt werden: KIwinners
+//			List<KIPlayer> KIwinners = winners.OfType<KIPlayer>().ToList();
+//			KIwinners[1].appendNNData2Xml("#000100",@"..\StoredNNs.xml","NeuralNetworks","OlberichAusBern");
 			return winners;
 		}
 		
