@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace Kalaha
 		
 		
 		
-		private KalahaBoardDisplaySTD BoardDispInstance = new KalahaBoardDisplaySTD(); //Für später	
+		// private KalahaBoardDisplaySTD BoardDispInstance = new KalahaBoardDisplaySTD(); //Für später	
 			
 		//Das brauchen wir erst später wenn wir Forms dazu nehmen:	
 		//public KalahaBoardDisplaySTD BoardDisplayInstance = new KalahaBoardDisplaySTD(); //Fürs KI Training sollte das optional sein.
@@ -48,7 +48,7 @@ namespace Kalaha
 		
 		public KalahaBoard() //Konstruktor ohne Argumente setzt Anfangskugelzahl u. Boardsize auf Standardert
 		{
-			Application.DoEvents();
+			// Application.DoEvents();
 			//Application.Run(BoardDisplayInstance); //Ruft das WinForm der Klasse KalahaBoardDisplay auf (Außer Betrieb weil großes Problem)
 			this.BoardSize = STD_BOARDSIZE; //Slotzahl jedes Spielers OHNE KalahaSlot
 			this.StartValue = STD_BOARDSIZE; //in den Standard-Regeln wird zufällig damit begonnen

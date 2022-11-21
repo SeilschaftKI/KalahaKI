@@ -8,7 +8,7 @@
  */
 using System;
 using System.Linq;
-using System.Windows.Forms;
+
 using System.Collections.Generic;
 
 namespace Kalaha
@@ -24,9 +24,7 @@ namespace Kalaha
 		
 		[STAThread]
 		private static void Main(string[] args)
-		{			
-		    Application.EnableVisualStyles();
-		    Application.SetCompatibleTextRenderingDefault(false);		    
+		{				    
 		    Tournament Turnier = new Tournament(3);
 		    List<Player> Gewinnerliste = Turnier.WinnersOfTournament();
 
